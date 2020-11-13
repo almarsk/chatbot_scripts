@@ -2,6 +2,8 @@
 
 {% block head %}
 <title>Zvědavobot</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}">
+<script src="{{ url_for('static', filename='js/loader.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -10,7 +12,8 @@
 <br>
 <div class="vkld">
     <p class="rppl">{{ crb }}</p>
-    <form action="/chat" method="POST">
+    <div id="loader" class="loader display-none"></div>
+    <form id="chat-form" action="/chat" method="POST">
         <input class="odp" type="text" name="odp" id="odp">
         <div class="butt3">
             <input class="pdo" type="submit" name="odpik" id="odpik" value="odpovědět">

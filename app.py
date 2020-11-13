@@ -1,7 +1,6 @@
 import sqlalchemy
 from flask import Flask, render_template, request, redirect, session
 import datetime
-import pygame
 
 
 
@@ -432,7 +431,6 @@ def chat():
                 return redirect('outro')
 
             else:
-                pygame.time.wait(2500)
                 opn = open("prepistest.txt", "a")
                 opn.write(f"\n\nuživatel:{post_odp}\n"f"\nzvědavobot:{corb}")
                 opn.close()
