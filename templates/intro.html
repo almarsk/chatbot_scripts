@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Zdvotlabot</title>
+{% endblock %}
+
+{% block body %}
+
+<h1 class="ndps">zdvotlabot</h1>
+<br>
+<div class="vkld">
+    <p class="rppl">Děkujeme, že jste se rozhodli účasnit vývoje chatbota zdvotlabot.
+                    V této chvíli se nacházíme ve fázi testování lexikální kompetence.
+                    Prosíme vás proto o to, abyste chatbotovi odpovídali jednoduchými větami
+                    a v rámci možností s bohatou slovní zásobou. Zdvotlabot je určen ke zdvořilostní konverzaci.
+                    Vyplňte prosím svou uživatelskou přezdívku a stiskněte tlačítko začít.
+                    Pokud robot přestane reagovat adekvátně, můžete stisknout tlačítko ukončit konverzaci.
+                    </p>
+    <form action="/chat" method="POST">
+        <input class="odp" type="text" name="us" id="us">
+        <div class="butt3">
+            <input class="pdo" type="submit" name="uziv" id="uziv" value="začít">
+            <br>
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}

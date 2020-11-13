@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Zdvotlabot</title>
+{% endblock %}
+
+{% block body %}
+
+<h1 class="ndps">zdvotlabot</h1>
+<br>
+<div class="vkld">
+    <p class="rppl">Děkujeme, za účast. Vyplňte prosím ještě tento krátký formulář. Komentář není povinný.
+                    </p>
+    <form action="/outro" method="POST">
+        <br>
+        <br>
+        <div>
+            <label class="rppl">do jaké míry probíhala :</label>
+            <br>
+            <input class="odp" type="number" name="chov" id="chov">
+        </div>
+        <div class="yo">
+            <label class="rppl">komentář k chování chatbota:</label>
+            <br>
+            <textarea class="odddp" type="text" name="komnt" id="komnt"></textarea>
+        </div>
+        <div class="butt3">
+            <input class="pdo" type="submit" name="konc" id="konc" value="odeslat">
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}

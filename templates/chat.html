@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Zvědavobot</title>
+{% endblock %}
+
+{% block body %}
+
+<h1 class="ndps">zvědavobot</h1>
+<br>
+<div class="vkld">
+    <p class="rppl">{{ crb }}</p>
+    <form action="/chat" method="POST">
+        <input class="odp" type="text" name="odp" id="odp">
+        <div class="butt3">
+            <input class="pdo" type="submit" name="odpik" id="odpik" value="odpovědět">
+            <br>
+            <input class="uk" type="submit" name="ukončit" id="ukončit" value="ukončit konverzaci">
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}
