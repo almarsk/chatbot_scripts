@@ -1,10 +1,8 @@
 import sqlalchemy
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, url_for
 import datetime
 
 
-
-d = dict(row=0, col=0)
 
 co_rika_bot = [[],
 
@@ -25,6 +23,7 @@ co_rika_bot = [[],
                ]
 
 def rplx(odp, row_col_dict):
+    d = row_col_dict
     if d['row']==0:
         row_col_dict["row"] = 1
         return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
@@ -412,7 +411,9 @@ def index():
 def intro():
     if request.method == "POST":
         if request.form.get("uziv"):
-            return redirect('/chat')
+            session["row"] = 0
+            session["col"] = 0
+            return redirect(url_for("chat"))
 
         else:
             return redirect('/')
@@ -426,7 +427,7 @@ def chat():
     if request.method == "POST":
         if request.form.get("odpik"):
             post_odp = request.form['odp']
-            corb = rplx(post_odp, d)
+            corb = rplx(post_odp, session)
             if not corb:
                 return redirect('outro')
 
@@ -443,14 +444,14 @@ def chat():
             return redirect('/outro')
 
         else:
-            corb = rplx('', d)
+            corb = rplx('', session)
             opn = open("prepistest.txt", "a")
             opn.write(f"\nzvědavobot:{corb}")
             opn.close()
             return render_template("chat.html", crb=corb)
 
     if request.method == 'GET':
-        corb = rplx('', d)
+        corb = rplx('', session)
         opn = open("prepistest.txt", "a")
         opn.write(f"\nzvědavobot:{corb}")
         opn.close()
