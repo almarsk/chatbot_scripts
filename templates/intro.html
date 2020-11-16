@@ -16,7 +16,7 @@
                     Vyplňte prosím svou uživatelskou přezdívku a stiskněte tlačítko začít.
                     Pokud robot přestane reagovat adekvátně, můžete stisknout tlačítko ukončit konverzaci.
                     </p>
-    <form action="/chat" method="POST">
+    <form action="{{ url_for('intro') }}" method="POST">
         <input class="odp" type="text" name="us" id="us">
         <div class="butt3">
             <input class="pdo" type="submit" name="uziv" id="uziv" value="začít">
