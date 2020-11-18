@@ -45,10 +45,10 @@ class User(db.Model):
 
 class Reply(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # chatbot replies have a NULL user_id
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     content = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    # chatbot replies have a NULL reaction_ms
     reaction_ms = db.Column(db.Integer)
 
 
@@ -134,7 +134,7 @@ def chat():
     scenario = import_module(session["scenario"])
     bot_reply = scenario.reply(user_reply, user.nick, conversation_state)
     session.modified = True
-    db.session.add(Reply(user_id=None, content=bot_reply, date=datetime.utcnow()))
+    db.session.add(Reply(user_id=user.id, content=bot_reply))
 
     db.session.commit()
     return render_template("chat.html", bot_reply=bot_reply, scenario=scenario.__name__)
