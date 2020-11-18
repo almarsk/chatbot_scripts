@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 {% block heading %}Zpětná vazba{% endblock %}
 
+{# ------------------------------------------------------------- Body #}
+
 {% block body %}
 
 <p class="rppl">
   Děkujeme za účast. Vyplňte prosím ještě tento krátký formulář.
   Komentář není povinný.
 </p>
+
+{% for error in errors %}
+  <p class="rppl error">{{ error }}</p>
+{% endfor %}
 
 <form method=post action="{{ url_for('dispatcher') }}">
   <br>
@@ -31,5 +37,19 @@
     <input class="pdo" type=submit value=odeslat>
   </div>
 </form>
+
+{% endblock %}
+
+{# -------------------------------------------------------------- CSS #}
+
+{% block head %}
+
+<style>
+.error {
+  border: solid;
+  border-color: red;
+  color: red;
+}
+</style>
 
 {% endblock %}

@@ -4,7 +4,15 @@ from pathlib import Path
 from importlib import import_module
 from datetime import datetime, timedelta
 
-from flask import Flask, request, session, render_template, url_for, redirect, abort
+from flask import (
+    Flask,
+    abort,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 from flask_sqlalchemy import SQLAlchemy
 
 # -------------------------------------------------------- Configuration
@@ -15,12 +23,12 @@ db_path = Path(__file__).parent / "chatbot.db"
 app.config.update(
     TEMPLATES_AUTO_RELOAD=True,
     SECRET_KEY=secret_key,
+    SESSION_COOKIE_SAMESITE="Lax",
     SQLALCHEMY_DATABASE_URI=f"sqlite:///{db_path}",
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
     REPLY_DELAY_MS=int(os.environ.get("CHATBOT_REPLY_DELAY_MS", 2500)),
 )
 db = SQLAlchemy(app)
-reply_delay = timedelta(milliseconds=app.config["REPLY_DELAY_MS"])
 
 # ------------------------------------------------------------- Database
 
@@ -40,7 +48,7 @@ class Reply(db.Model):
     # chatbot replies have a NULL user_id
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     content = db.Column(db.Text, nullable=False)
-    date = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     reaction_ms = db.Column(db.Integer)
 
 
@@ -118,7 +126,6 @@ def chat():
             Reply(
                 user_id=user.id,
                 content=user_reply,
-                date=datetime.utcnow() - reply_delay,
                 reaction_ms=request.form.get("reaction-ms"),
             )
         )
@@ -135,13 +142,19 @@ def chat():
 
 def outro():
     if request.method == "GET":
-        return render_template("outro.html")
+        return render_template("outro.html", errors=())
     elif request.method == "POST":
+        errors = []
+        rating = request.form.get("rating")
+        if rating is None:
+            errors.append("Bodové hodnocení je povinné, vyplňte je prosím.")
+        if errors:
+            return render_template("outro.html", errors=errors)
+
         user = User.query.filter_by(id=session["user_id"]).first()
         user.end_date = datetime.utcnow()
-        # TODO: clamp range of rating?
-        user.rating = int(request.form["rating"])
-        user.comment = request.form["comment"]
+        user.rating = int(rating)
+        user.comment = request.form.get("comment")
 
         db.session.add(user)
         db.session.commit()

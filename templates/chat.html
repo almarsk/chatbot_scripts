@@ -5,22 +5,22 @@
 
 {% block body %}
 
-<div id=loader class="loader display-none"></div>
+<div id=loader class="loader"></div>
 
-<div id=everything-else>
+<div id=everything-else class="display-none">
   <p id=chatbot-reply class="rppl">{{ bot_reply }}</p>
 
   <form id=chat-form method=post action="{{ url_for('dispatcher') }}">
-    <input name=answer class="odp" type=text autofocus>
-    <input name=reaction-ms id=reaction-ms type=hidden>
+    <input id=answer name=answer class="odp" type=text>
+    <input id=reaction-ms name=reaction-ms type=hidden>
     <div class="butt3">
-      <input id=submit-answer class="pdo" type=submit value=odpovědět>
+      <input class="pdo" type=submit value=odpovědět>
     </div>
   </form>
 
   <form id=end-form method=post action="{{ url_for('dispatcher', end=1) }}">
     <div class="butt3">
-      <input id=submit-end class="uk" type=submit value="ukončit konverzaci">
+      <input class="uk" type=submit value="ukončit konverzaci">
     </div>
   </form>
 </div>
@@ -33,33 +33,26 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  var start_time = Date.now();
-
+  var start_time;
   var delay = {{ config.REPLY_DELAY_MS }};
+
   var loader = document.getElementById("loader");
   var everything_else = document.getElementById("everything-else");
 
   var chat_form = document.getElementById("chat-form");
   var reaction_ms = document.getElementById("reaction-ms");
-  var submit_answer = document.getElementById("submit-answer");
+  var answer = document.getElementById("answer");
 
-  var end_form = document.getElementById("end-form");
-  var submit_end = document.getElementById("submit-end");
-
-  submit_answer.addEventListener("click", function(event) {
-    event.preventDefault();
+  chat_form.addEventListener("submit", function() {
     reaction_ms.value = Date.now() - start_time;
-    loader.classList.remove("display-none");
-    everything_else.classList.add("display-none");
-    setTimeout(function() { chat_form.submit() }, delay);
   });
 
-  submit_end.addEventListener("click", function(event) {
-    event.preventDefault();
-    loader.classList.remove("display-none");
-    everything_else.classList.add("display-none");
-    setTimeout(function() { end_form.submit() }, delay);
-  });
+  setTimeout(function() {
+    loader.classList.add("display-none");
+    everything_else.classList.remove("display-none");
+    answer.focus();
+    start_time = Date.now();
+  }, delay);
 });
 </script>
 
