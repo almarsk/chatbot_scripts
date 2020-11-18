@@ -1,33 +1,25 @@
 {% extends "base.html" %}
-
-{% block head %}
-<title>Zdvotlabot</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}">
-<script src="{{ url_for('static', filename='js/loader.js') }}"></script>
-{% endblock %}
+{% block heading %}{{ scenario }}{% endblock %}
 
 {% block body %}
 
-<h1 class="ndps">zdvotlabot</h1>
-<br>
-<div id="loader" class="loader display-none"></div>
-<div class="vkld" id="rep">
-    <p class="rppl">Děkujeme, že jste se rozhodli účasnit vývoje chatbota zdvotlabot.
-                    V této chvíli se nacházíme ve fázi testování lexikální kompetence.
-                    Prosíme vás proto o to, abyste chatbotovi odpovídali jednoduchými větami
-                    a v rámci možností s bohatou slovní zásobou. Zdvotlabot je určen ke zdvořilostní konverzaci.
-                    Vyplňte prosím svou uživatelskou přezdívku a stiskněte tlačítko začít.
-                    Pokud robot přestane reagovat adekvátně, můžete stisknout tlačítko ukončit konverzaci.
-                    </p>
-    <form id="chat-form" action="/chat" method="POST">
-        <input class="odp" type="text" name="us" id="us">
-        <div class="butt3">
-            <input class="pdo" type="submit" name="odpik" id="odpik" value="začít">
-            <br>
-        </div>
-    </form>
-</div>
+<p class="rppl">
+  Děkujeme, že jste se rozhodli účasnit vývoje chatbota {{ scenario }}.
+  V této chvíli se nacházíme ve fázi testování lexikální kompetence.
+  Prosíme vás proto o to, abyste chatbotovi odpovídali jednoduchými
+  větami a v rámci možností s bohatou slovní zásobou.
+  {{ scenario_desc }}
+  Vyplňte prosím svou uživatelskou přezdívku a stiskněte tlačítko začít.
+  Pokud robot přestane reagovat adekvátně, můžete stisknout tlačítko
+  ukončit konverzaci.
+</p>
 
-
+<form method=post action="{{ url_for('dispatcher') }}">
+  <input name=nick id=us class="odp" type=text autofocus>
+  <div class="butt3">
+    <input class="pdo" type=submit value=začít>
+    <br>
+  </div>
+</form>
 
 {% endblock %}
