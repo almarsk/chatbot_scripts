@@ -1,482 +1,165 @@
-import sqlalchemy
-from flask import Flask, render_template, request, redirect, session, url_for
-import datetime
-
-
-
-co_rika_bot = [[],
-
-               ['Dobrý den, já jsem zvědavobot. A vy?'],
-
-               ['Těší mě. Dnes je hezky, že?'],
-
-               ['Tak by bylo dobré vyrazit někam na výlet.', 'Aha, tak to je lepší zůstat doma a číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?'],
-
-               ['Co vyrazit třeba na Pravčickou bránu.', 'Aha, tak vy nemůžete. To je mi líto. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?', 'Aha, tak vy si raději čtete.', 'Nebo si můžete pustit nějaký film.', 'Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?','Aha, tak vám se nechce. To je mi líto. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?' ],
-
-               ['Skutečně? České Švýcarsko je nádherná oblast. Doufám, že tam někdy zavítáte. Určitě se vám tam bude líbit.', 'Aha, tak možná někam jinam?', 'Škoda, že se nemohu přidat.', 'Čtení je i má záliba. Nejraději mám Zločin a trest.', 'Já mám nejradši pixarovky, a vy?', 'Tak to máte výborný vkus. Já nejraději poslouchám Johanna Sebastiana Bacha.', 'Aha. V této oblasti se příliš nevyznám. Neposloucháte někdy vážnou hudbu?' ],
-
-               ['To rád slyším', 'To je skvělý nápad.', 'Inu, nedisponuji fyzickou formou, která by mohla jít na výlet. Když na to přijde, nedisponuji ani fyzickou formou, která by mohla udělat palačinky', 'Je to tak, nedisponuji zkrátka fyzickou formou, která by mohla jít na výlet. Když na to přijde, nedisponuji ani fyzickou formou, která by mohla udělat palačinky', 'Tak to je zajímavé. Budu muset končit. Doufám, že vás četba obohatí.', 'Už budu muset končit, užijte si film.', 'To je dobře. Už budu muset končit, ale přeji vám příjemný poslech.', 'To nevadí. Už budu muset končit. Přeji vám příjemný poslech.', 'Viďte', 'Do toho Švýcarska ale určitě zajeďte.' ],
-
-               ['Už budu muset končit. Užijte si to na výletě. Můžete mi poslat pohled na www.zdvotlabot.cz', 'Rád jsem se s vámi seznámil. Tak nashle!']
-
-               ]
-
-def rplx(odp, row_col_dict):
-    d = row_col_dict
-    if d['row']==0:
-        row_col_dict["row"] = 1
-        return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-    #Dobrý den, já jsem zvědavobot. A vy?
-
-    if d['row']==1:
-        row_col_dict["row"] = 2
-        return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-    #Těší mě. Dnes je hezky, že?
-
-    if d['row']==2:
-        row_col_dict["row"] = 3
-
-        if ' ne' in odp:
-            row_col_dict["col"] = 1
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Aha, tak to je lepší zůstat doma a číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?
-
-        else:
-            row_col_dict["col"] = 0
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Tak by bylo dobré vyrazit někam na výlet.
-
-    if d['row'] == 3 and d['col'] == 0:
-        row_col_dict["row"] = 4
-
-        if any(['můž' in odp, 'mus' in odp]):
-            row_col_dict["col"] = 1
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Aha, tak vy nemůžete. To je mi líto. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?
-
-        if any(['chc' in odp, 'radš' in odp,'radě' in odp,]):
-            row_col_dict["col"] = 5
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Aha, tak vám se nechce. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?
-
-        else:
-            row_col_dict["col"] = 0
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Co vyrazit třeba na Pravčickou bránu.
-
-    if d['row'] == 3 and d['col'] == 1:
-        row_col_dict["row"] = 4
-
-        if 'čt' in odp:
-            row_col_dict["col"] = 2
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Tak to si určitě raději čtete.
-
-        if 'ano' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'občas' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'často' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'někdy' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'rád' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'urč' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        else:
-            row_col_dict["col"] = 3
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Nebo si můžete pustit nějaký film.
-
-    if d['row'] == 4 and d['col'] == 0:
-        row_col_dict["row"] = 5
-
-        if 'ještě' in odp:
-            row_col_dict["col"] = 0
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Skutečně? České Švýcarsko je nádherná oblast. Doufám, že tam někdy zavítáte. Určitě se vám tam bude líbit.
-
-        if 'nikdy' in odp:
-            row_col_dict["col"] = 0
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Skutečně? České Švýcarsko je nádherná oblast. Doufám, že tam někdy zavítáte. Určitě se vám tam bude líbit.
-
-        if 'nezn' in odp:
-            row_col_dict["col"] = 0
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Skutečně? České Švýcarsko je nádherná oblast. Doufám, že tam někdy zavítáte. Určitě se vám tam bude líbit.
-
-        if any(['už' in odp, 'ano' in odp]):
-            row_col_dict["col"] = 1
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Aha, tak jinam.
-
-        else:
-            row_col_dict["col"] = 2
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Škoda, že se nemohu přidat.
-
-    if d['row'] == 4 and d['col'] == 1:
-
-        if 'čt' in odp:
-            row_col_dict["col"] = 2
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Tak to si určitě raději čtete.
-
-        if 'ano' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'občas' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'často' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'někdy' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'rád' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'urč' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        else:
-            row_col_dict["col"] = 3
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Nebo si můžete pustit nějaký film.
-
-    if d['row'] == 4 and d['col'] == 2:
-
-        if 'ano' in odp:
-            row_col_dict["row"] = 5
-            row_col_dict["col"] = 3
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Čtení je i má záliba. Nejraději mám Zločin a trest.
-
-        if 'rád' in odp:
-            row_col_dict["row"] = 5
-            row_col_dict["col"] = 3
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Čtení je i má záliba. Nejraději mám Zločin a trest.
-
-        else:
-            row_col_dict["col"] = 3
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Nebo si můžete pustit nějaký film.
-
-    if d['row'] == 4 and d['col'] == 3:
-        row_col_dict["row"] = 5
-        row_col_dict["col"] = 4
-        return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Já mám nejradši pixarovky, a vy?
-
-    if d['row'] == 4 and d['col'] == 4:
-        row_col_dict["row"] = 5
-
-        if 'klas' in odp:
-            row_col_dict["col"] = 5
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-            # Tak to je skvělé, to máte výborný vkus. Já nejraději poslouchám Johanna Sebastiana Bacha.
-
-        if 'Bach' in odp:
-            row_col_dict["col"] = 5
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-            # Tak to je skvělé, to máte výborný vkus. Já nejraději poslouchám Johanna Sebastiana Bacha.
-
-        if 'vážn' in odp:
-            row_col_dict["col"] = 5
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-            # Tak to je skvělé, to máte výborný vkus. Já nejraději poslouchám Johanna Sebastiana Bacha.
-
-        else:
-            row_col_dict["col"] = 6
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-             #Aha. V této oblasti se příliš nevyznám. Neposloucháte někdy vážnou hudbu?
-
-    if d['row'] == 4 and d['col'] == 5:
-
-        if 'čt' in odp:
-            row_col_dict["col"] = 2
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Tak to si určitě raději čtete.
-
-        if 'ano' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'občas' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'často' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'někdy' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'rád' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        if 'urč' in odp:
-            row_col_dict["col"] = 4
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
-
-        else:
-            row_col_dict["col"] = 3
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Nebo si můžete pustit nějaký film.
-
-    if d['row'] == 5 and d['col'] == 0:
-        if not 'taky' in odp:
-            if 'tak' in odp:
-                row_col_dict["row"] = 6
-                row_col_dict["col"] = 0
-                return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-                #To rád slyším
-
-            if 'urč' in odp:
-                row_col_dict["row"] = 6
-                row_col_dict["col"] = 8
-                return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-                #viďte
-            else:
-                row_col_dict["row"] = 6
-                row_col_dict["col"] = 9
-                return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-                # do toho švýcarska ale určitě zajeďte
-
-        else:
-            row_col_dict["row"] = 6
-            row_col_dict["col"] = 8
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-            #do toho švýcarska ale určitě zajeďte
-
-    if d['row'] == 5 and d['col'] == 1:
-        row_col_dict["row"] = 6
-        row_col_dict["col"] = 1
-        return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #To je skvělý nápad.
-
-    if d['row'] == 5 and d['col'] == 2:
-        row_col_dict["row"] = 6
-
-        if '?' in odp:
-            row_col_dict["col"] = 2
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Inu, nedisponuji
-
-        else:
-            row_col_dict["col"] = 3
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Ano, nedisponuji
-
-    if d['row'] == 5 and d['col'] == 3:
-        row_col_dict["row"] = 6
-        row_col_dict["col"] = 4
-        return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Tak to je zajímavé, už budu muset končit. Doufám, že vás četba obohatí.
-
-    if d['row'] == 5 and d['col'] == 4:
-        row_col_dict["row"] = 6
-        row_col_dict["col"] = 5
-        return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #Už budu muset končit. Užijte si film.
-
-    if d['row'] == 5 and d['col'] == 5:
-        row_col_dict["row"] = 6
-        row_col_dict["col"] = 6
-        return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        #To je dobře. Už budu muset končit, ale přeji vám příjemný poslech.
-
-    if d['row'] == 5 and d['col'] == 6:
-
-        if '?' in odp:
-            row_col_dict["col"] = 5
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Inu, nedisponuji
-
-        else:
-            row_col_dict["row"] = 6
-            row_col_dict["col"] = 7
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-        # Ano, nedisponuji
-
-    if d['row'] == 6:
-        if d['col'] == 0:
-            row_col_dict["row"] = 7
-            row_col_dict["col"] = 0
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-
-        if d['col'] == 1:
-            row_col_dict["row"] = 7
-            row_col_dict["col"] = 0
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-
-        if d['col'] == 2:
-            row_col_dict["row"] = 7
-            row_col_dict["col"] = 0
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-
-        if d['col'] == 3:
-            row_col_dict["row"] = 7
-            row_col_dict["col"] = 0
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-
-        if  d['col'] == 4:
-            row_col_dict["row"] = 7
-            row_col_dict["col"] = 1
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-
-        if  d['col'] == 5:
-            row_col_dict["row"] = 7
-            row_col_dict["col"] = 1
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-
-        if  d['col'] == 6:
-            row_col_dict["row"] = 7
-            row_col_dict["col"] = 1
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-
-        if  d['col'] == 7:
-            row_col_dict["row"] = 7
-            row_col_dict["col"] = 1
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-
-        if  d['col'] == 8:
-            row_col_dict["row"] = 7
-            row_col_dict["col"] = 0
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-
-        if  d['col'] == 9:
-            row_col_dict["row"] = 7
-            row_col_dict["col"] = 0
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
-
-    if d['row'] == 7 and d['col'] == 0:
-            row_col_dict["col"] = 1
-            return co_rika_bot[row_col_dict["row"]][row_col_dict["col"]]
+import os
+import secrets
+from pathlib import Path
+from importlib import import_module
+from datetime import datetime, timedelta
+
+from flask import (
+    Flask,
+    abort,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
+from flask_sqlalchemy import SQLAlchemy
+
+# -------------------------------------------------------- Configuration
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///repliky.db'
-#db = SQLAlchemy(app)
-app.config['SECRET_KEY'] = 'a_random_string'
+secret_key = os.environ.get("CHATBOT_SECRET_KEY", secrets.token_bytes(32))
+db_path = Path(__file__).parent / "chatbot.db"
+app.config.update(
+    TEMPLATES_AUTO_RELOAD=True,
+    SECRET_KEY=secret_key,
+    SESSION_COOKIE_SAMESITE="Lax",
+    SQLALCHEMY_DATABASE_URI=f"sqlite:///{db_path}",
+    SQLALCHEMY_TRACK_MODIFICATIONS=False,
+    REPLY_DELAY_MS=int(os.environ.get("CHATBOT_REPLY_DELAY_MS", 2500)),
+)
+db = SQLAlchemy(app)
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+# ------------------------------------------------------------- Database
 
-@app.route("/intro", methods=['GET', 'POST'])
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nick = db.Column(db.Text, nullable=False)
+    scenario = db.Column(db.Text, nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    end_date = db.Column(db.DateTime, default=None)
+    rating = db.Column(db.Integer, default=None)
+    comment = db.Column(db.Text, default=None)
+
+
+class Reply(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    # chatbot replies have a NULL reaction_ms
+    reaction_ms = db.Column(db.Integer)
+
+
+if not db_path.is_file():
+    db.create_all()
+
+# ---------------------------------------------------- Handling requests
+
+
+# There's technically only one route, so as to prevent the user from
+# easily navigating the interaction with the chatbot. The state of the
+# app is instead held in session["page"], based on which the request is
+# dispatched to an appropriate handler.
+#
+# The scenario can be set via query parameters in the URL
+# (?scenario=...). Once set, it's stored in session["scenario"]. Setting
+# the scenario clears the session, as it's taken as a signal of a new
+# conversation starting. Trying to use the app without setting a
+# scenario shows an error.
+@app.route("/", methods=("GET", "POST"))
+def dispatcher():
+    url_scenario = request.args.get("scenario")
+    if url_scenario is not None:
+        # a scenario was set via the URL's query string -> start a new
+        # conversation
+        session.clear()
+        session["scenario"] = url_scenario
+        try:
+            import_module(url_scenario)
+        except ImportError:
+            session["page"] = "not_found"
+        return redirect(url_for("dispatcher"))
+    elif session.get("scenario") is None:
+        # starting a conversation without setting a scenario is
+        # forbidden -> 403 error
+        return render_template("forbidden.html"), 403
+
+    if request.args.get("end"):
+        session["page"] = "outro"
+        return redirect(url_for("dispatcher"))
+
+    page = session.setdefault("page", "intro")
+    handler = globals().get(page)
+    if handler is None:
+        abort(404)
+    return handler()
+
+
+def not_found():
+    return render_template("not_found.html", scenario=session["scenario"]), 404
+
+
 def intro():
-    if request.method == "POST":
-        if request.form.get("uziv"):
-            session["row"] = 0
-            session["col"] = 0
-            return redirect(url_for("chat"))
-
-        else:
-            return redirect('/')
-
     if request.method == "GET":
-        return render_template("intro.html")
+        scenario = import_module(session["scenario"])
+        return render_template(
+            "intro.html", scenario=scenario.__name__, scenario_desc=scenario.description
+        )
+    elif request.method == "POST":
+        user = User(nick=request.form.get("nick"), scenario=session["scenario"])
+        db.session.add(user)
+        db.session.commit()
+        # the user only has a valid ID after they've been committed to
+        # the database
+        session["user_id"] = user.id
+        session["page"] = "chat"
+        return redirect(url_for("dispatcher"))
 
-@app.route("/chat", methods=['GET', 'POST'])
+
 def chat():
-    print(request.form)
+    user = User.query.filter_by(id=session["user_id"]).first()
+    user_reply = request.form.get("answer")
     if request.method == "POST":
-        if request.form.get("odpik"):
-            post_odp = request.form['odp']
-            corb = rplx(post_odp, session)
-            if not corb:
-                return redirect('outro')
+        db.session.add(
+            Reply(
+                user_id=user.id,
+                content=user_reply,
+                reaction_ms=request.form.get("reaction-ms"),
+            )
+        )
 
-            else:
-                opn = open("prepistest.txt", "a")
-                opn.write(f"\n\nuživatel:{post_odp}\n"f"\nzvědavobot:{corb}")
-                opn.close()
-                return render_template('/chat.html', crb=corb)
+    conversation_state = session.setdefault("conversation_state", {})
+    scenario = import_module(session["scenario"])
+    bot_reply = scenario.reply(user_reply, user.nick, conversation_state)
+    session.modified = True
+    db.session.add(Reply(user_id=user.id, content=bot_reply))
 
-        elif request.form.get("ukončit"):
-            opn = open("prepistest", "a")
-            opn.write("respondent shledal konverzaci npeřirozenou")
-            opn.close()
-            return redirect('/outro')
+    db.session.commit()
+    return render_template("chat.html", bot_reply=bot_reply, scenario=scenario.__name__)
 
-        else:
-            corb = rplx('', session)
-            opn = open("prepistest.txt", "a")
-            opn.write(f"\nzvědavobot:{corb}")
-            opn.close()
-            return render_template("chat.html", crb=corb)
 
-    if request.method == 'GET':
-        corb = rplx('', session)
-        opn = open("prepistest.txt", "a")
-        opn.write(f"\nzvědavobot:{corb}")
-        opn.close()
-        return render_template("chat.html", crb = corb)
-
-@app.route("/outro", methods=['GET', 'POST'])
 def outro():
-
     if request.method == "GET":
-        return render_template("outro.html")
+        return render_template("outro.html", errors=())
+    elif request.method == "POST":
+        errors = []
+        rating = request.form.get("rating")
+        if rating is None:
+            errors.append("Bodové hodnocení je povinné, vyplňte je prosím.")
+        if errors:
+            return render_template("outro.html", errors=errors)
 
-    if request.method == "POST":
-        číslo = request.form['chov']
-        koment = request.form['komnt']
-        opn = open("prepistest", "a")
-        opn.write("\n\nrespondent ohodnotil chování bota známkou: " + číslo + "\n\nkomentář: " + koment)
-        opn.close()
-        return redirect('/konec')
+        user = User.query.filter_by(id=session["user_id"]).first()
+        user.end_date = datetime.utcnow()
+        user.rating = int(rating)
+        user.comment = request.form.get("comment")
 
-@app.route("/konec", methods=['GET', 'POST'])
-def konec():
-
-    if request.method == "GET":
-        return render_template("konec.html")
-
+        db.session.add(user)
+        db.session.commit()
+        session.clear()
+        return render_template("thanks.html")
 
 
 if __name__ == "__main__":
