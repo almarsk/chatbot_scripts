@@ -134,10 +134,17 @@ def chat():
     scenario = import_module(session["scenario"])
     bot_reply = scenario.reply(user_reply, user.nick, conversation_state)
     session.modified = True
-    db.session.add(Reply(user_id=user.id, content=bot_reply))
+    if bot_reply is None:
+        session["page"] = "outro"
+        response = redirect(url_for("dispatcher"))
+    else:
+        db.session.add(Reply(user_id=user.id, content=bot_reply))
+        response = render_template(
+            "chat.html", bot_reply=bot_reply, scenario=scenario.__name__
+        )
 
     db.session.commit()
-    return render_template("chat.html", bot_reply=bot_reply, scenario=scenario.__name__)
+    return response
 
 
 def outro():
