@@ -1,4 +1,7 @@
 description = "Scénář 1 není určen ke zdvořilostní konverzaci, nýbrž pouze k testování."
+bg_color = "blue"
+heading_color = "green"
+heading_outline = "red"
 
 
 def reply(user_reply, nick, conversation_state):

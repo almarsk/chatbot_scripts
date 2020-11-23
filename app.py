@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from flask import (
     Flask,
     abort,
+    g,
     redirect,
     render_template,
     request,
@@ -85,6 +86,13 @@ def dispatcher():
         # starting a conversation without setting a scenario is
         # forbidden -> 403 error
         return render_template("forbidden.html"), 403
+
+    try:
+        scenario = import_module(session["scenario"])
+        for attr in ("bg_color", "heading_color", "heading_outline"):
+            setattr(g, attr, getattr(scenario, attr, None))
+    except:
+        pass
 
     if request.args.get("end"):
         session["page"] = "outro"
