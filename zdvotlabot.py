@@ -4,7 +4,7 @@ co_rika_bot = [[],
 
                ['Těší mě. Dnes je hezky, že?'],
 
-               ['Tak by bylo dobré vyrazit někam na výlet.', 'Aha, tak to je lepší zůstat doma a číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?'],
+               ['Tak by bylo dobré vyrazit někam na výlet.', 'Aha, tak to je nejlepší zůstat doma a číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?'],
 
                ['Co vyrazit třeba na Pravčickou bránu.', 'Aha, tak vy nemůžete. To je mi líto. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?', 'Aha, tak vy si raději čtete.', 'Nebo si můžete pustit nějaký film.', 'Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?','Aha, tak vám se nechce. To je mi líto. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?' ],
 
@@ -334,7 +334,27 @@ def reply(user_reply, nick, conversation_state):
         if '?' in user_reply:
             conversation_state["col"] = 5
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-        # Inu, nedisponuji
+        # skvělé
+
+        if 'ano' in user_reply:
+            conversation_state["col"] = 5
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # skvělé
+
+        if 'jo' in user_reply:
+            conversation_state["col"] = 5
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # skvělé
+
+        if 'občas' in user_reply:
+            conversation_state["col"] = 5
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # skvělé
+
+        if 'kdy' in user_reply:
+            conversation_state["col"] = 5
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # skvělé
 
         else:
             conversation_state["row"] = 6
