@@ -89,7 +89,7 @@ def dispatcher():
 
     try:
         scenario = import_module(session["scenario"])
-        for attr in ("bg_color", "heading_color", "heading_outline"):
+        for attr in ("bg_color", "heading_color", "reply_outline", "reply_bg"):
             setattr(g, attr, getattr(scenario, attr, None))
     except ImportError:
         pass

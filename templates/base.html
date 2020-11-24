@@ -64,7 +64,7 @@ body {
 .rppl {
   margin-left: 10px;
   margin-right: 10%;
-  background-color: {{ g.reply_color | default("#d0cc95", True) }};
+  background-color: {{ g.reply_bg | default("#d0cc95", True) }};
   margin-top: 25px;
   font-family: monospace;
   font-size: 25px;
@@ -74,7 +74,7 @@ body {
   margin-left: 25px;
   margin-right: 45%;
   border: solid;
-  border-color: #F8F8FF;
+  border-color: {{ g.reply_outline | default("#F8F8FF", True) }};
 }
 
 .ndps {
@@ -83,11 +83,11 @@ body {
   color: {{ g.heading_color | default("#FFE4C4", True) }};
   font-size: 35px;
   font-family: monospace;
-  {% set heading_outline = g.heading_outline | default("#000", True) %}
-  text-shadow: -1px -1px 0 {{ heading_outline }},
-    1px -1px 0 {{ heading_outline }},
-    -1px 1px 0 {{ heading_outline }},
-    1px 1px 0 {{ heading_outline }};
+  outline: #000;
+  text-shadow: -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .pdo {
