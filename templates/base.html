@@ -64,7 +64,7 @@ body {
 .rppl {
   margin-left: 10px;
   margin-right: 10%;
-  background-color: #d0cc95;
+  background-color: {{ g.reply_color | default("#d0cc95", True) }};
   margin-top: 25px;
   font-family: monospace;
   font-size: 25px;
