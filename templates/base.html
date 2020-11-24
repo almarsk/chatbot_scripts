@@ -12,7 +12,7 @@
   <style>
 body {
   font-family: Helvetica;
-  background-color: DarkKhaki;
+  background-color: {{ g.bg_color | default("DarkKhaki", True) }};
 }
 
 .sah {
@@ -80,10 +80,14 @@ body {
 .ndps {
   margin-left: 25px;
   margin-right: 25px;
-  color: #FFE4C4;
+  color: {{ g.heading_color | default("#FFE4C4", True) }};
   font-size: 35px;
   font-family: monospace;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  {% set heading_outline = g.heading_outline | default("#000", True) %}
+  text-shadow: -1px -1px 0 {{ heading_outline }},
+    1px -1px 0 {{ heading_outline }},
+    -1px 1px 0 {{ heading_outline }},
+    1px 1px 0 {{ heading_outline }};
 }
 
 .pdo {
