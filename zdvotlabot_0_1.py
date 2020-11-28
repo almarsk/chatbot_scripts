@@ -51,10 +51,10 @@ co_rika_bot = [[],
 
 
 description = "Zdvotlabot dovede na krátkou chvíli zdvořile tlachat."
-bg_color = "#F0FFFF"
-heading_color = "#00e673"
-reply_bg = "#ccffff"
-reply_outline = "#000"
+bg_color = "#d1ba6b"
+heading_color = "#e0d17a"
+reply_bg = "#b89452"
+reply_outline = "#a3753d"
 
 
 def reply(user_reply, nick, conversation_state):
@@ -87,6 +87,11 @@ def reply(user_reply, nick, conversation_state):
     if conversation_state['row'] == 3 and conversation_state['col'] == 0:
         conversation_state["row"] = 4
 
+        if 'proč ne' in user_reply:
+            conversation_state["col"] = 0
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # Co vyrazit třeba na Pravčickou bránu.
+
         if any(['nemůž' in user_reply, 'mus' in user_reply]):
             conversation_state["col"] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
@@ -96,11 +101,6 @@ def reply(user_reply, nick, conversation_state):
             conversation_state["col"] = 5
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Aha, tak vám se nechce. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?
-
-        if 'proč ne' in user_reply:
-            conversation_state["col"] = 0
-            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-        # Co vyrazit třeba na Pravčickou bránu.
 
         else:
             conversation_state["col"] = 0
