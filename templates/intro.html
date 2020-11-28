@@ -4,14 +4,10 @@
 {% block body %}
 
 <p class="rppl">
-  Děkujeme, že jste se rozhodli účastnit vývoje chatbota {{ scenario }}.
-  V této chvíli se nacházíme ve fázi testování lexikální kompetence.
-  Prosíme vás proto o to, abyste chatbotovi odpovídali jednoduchými
-  větami a v rámci možností s bohatou slovní zásobou.
-  {{ scenario_desc }}
-  Vyplňte prosím svou uživatelskou přezdívku a stiskněte tlačítko začít.
-  Pokud robot přestane reagovat adekvátně, můžete stisknout tlačítko
-  ukončit konverzaci.
+  Děkujeme, že jste se rozhodli účastnit vývoje chatbota {{ scenario }}. <br><br>
+  {{ scenario_desc }} <br><br>
+  Vyplňte prosím svou uživatelskou přezdívku a stiskněte tlačítko začít.<br><br>
+  Pokud robot přestane dávat smysl, stikněte tlačítko "nesmysl".
 </p>
 
 <form method=post action="{{ url_for('dispatcher') }}">
