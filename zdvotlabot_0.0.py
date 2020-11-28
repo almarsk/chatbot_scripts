@@ -7,15 +7,34 @@ co_rika_bot = [[],
 
                ['Těší mě. Dnes je hezky, že?'],
 
-               ['Tak by bylo dobré vyrazit někam na výlet.', 'Aha, tak to je nejlepší zůstat doma a číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?'],
+               ['Tak by bylo dobré vyrazit někam na výlet.',
+                'Aha, tak to je nejlepší zůstat doma a číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?'],
 
-               ['Co vyrazit třeba na Pravčickou bránu.', 'Aha, tak vy nemůžete. To je mi líto. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?', 'Aha, tak vy si raději čtete.', 'Nebo si můžete pustit nějaký film.', 'Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?','Aha, tak vám se nechce. To je mi líto. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?' ],
+               ['Co vyrazit třeba na Pravčickou bránu.',
+                'Aha, tak vy nemůžete. To je mi líto. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?',
+                'Aha, tak vy si raději čtete.',
+                'Nebo si můžete pustit nějaký film.',
+                'Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?',
+                'Aha, tak vám se nechce. To je mi líto. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?' ],
 
-               ['Skutečně? České Švýcarsko je nádherná oblast. Doufám, že tam někdy zavítáte. Určitě se vám tam bude líbit.', 'Aha, tak možná někam jinam?', 'Škoda, že se nemohu přidat.', 'Čtení je i má záliba. Nejraději mám Zločin a trest.', 'Já mám nejradši pixarovky, a vy?', 'Tak to máte výborný vkus. Já nejraději poslouchám Johanna Sebastiana Bacha.', 'Aha. V této oblasti se příliš nevyznám. Neposloucháte někdy vážnou hudbu?' ],
+               ['Skutečně? České Švýcarsko je nádherná oblast. Doufám, že tam někdy zavítáte. Určitě se vám tam bude líbit.',
+                'Aha, tak možná někam jinam?',
+                'Škoda, že se nemohu přidat.',
+                'Čtení je i má záliba. Nejraději mám Zločin a trest.',
+                'Já mám nejradši pixarovky, a vy?',
+                'Tak to máte výborný vkus. Já nejraději poslouchám Johanna Sebastiana Bacha.',
+                'Aha. V této oblasti se příliš nevyznám. Neposloucháte někdy vážnou hudbu?' ],
 
-               ['To rád slyším', 'To je skvělý nápad.', 'Inu, nedisponuji fyzickou formou, která by mohla jít na výlet. Když na to přijde, nedisponuji ani fyzickou formou, která by mohla udělat palačinky', 'Je to tak, nedisponuji zkrátka fyzickou formou, která by mohla jít na výlet. Když na to přijde, nedisponuji ani fyzickou formou, která by mohla udělat palačinky', 'Tak to je zajímavé. Budu muset končit. Doufám, že vás četba obohatí.', 'Už budu muset končit, užijte si film.', 'To je dobře. Už budu muset končit, ale přeji vám příjemný poslech.', 'To nevadí. Už budu muset končit. Přeji vám příjemný poslech.', 'Viďte', 'Do toho Švýcarska ale určitě zajeďte.' ],
+               ['To rád slyším',
+                'To je skvělý nápad.',
+                'Inu, nedisponuji fyzickou formou, která by mohla jít na výlet. Když na to přijde, nedisponuji ani fyzickou formou, která by mohla udělat palačinky',
+                'Je to tak, nedisponuji zkrátka fyzickou formou, která by mohla jít na výlet. Když na to přijde, nedisponuji ani fyzickou formou, která by mohla udělat palačinky',
+                'Tak to je zajímavé. Budu muset končit. Doufám, že vás četba obohatí.',
+                'Už budu muset končit, užijte si film.', 'To je dobře. Už budu muset končit, ale přeji vám příjemný poslech.',
+                'To nevadí. Už budu muset končit. Přeji vám příjemný poslech.', 'Viďte', 'Do toho Švýcarska ale určitě zajeďte.' ],
 
-               ['Už budu muset končit. Užijte si to na výletě. Můžete mi poslat pohled na www.zdvotlabot.cz', 'Rád jsem se s vámi seznámil. Tak nashle!']
+               ['Už budu muset končit. Užijte si to na výletě. Můžete mi poslat pohled na www.zdvotlabot.cz',
+                'Rád jsem se s vámi seznámil. Tak nashle!']
 
                ]
 
