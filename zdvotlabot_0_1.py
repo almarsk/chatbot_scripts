@@ -40,8 +40,8 @@ co_rika_bot = [[],
 
                ['Už budu muset končit. Užijte si to na výletě. Můžete mi poslat pohled na www.zdvotlabot.cz',
                 'Rád jsem se s vámi seznámil. Tak nashle!',
-                'Palačinky mám tuze rád. Už budu muset končit. Užijte si to na výletě. Můžete mi poslad pohled na www.zdvotlabot.cz',
-                'A víte že ani nevím?  Ideální by bylo, kdybych to mohl střídat Už budu muset končit. Užijte si to na výletě. Můžete mi poslad pohled na www.zdvotlabot.cz',
+                'Palačinky mám tuze rád. Už budu muset končit. Užijte si to na výletě. Můžete mi poslat pohled na www.zdvotlabot.cz',
+                'A víte že ani nevím?  Ideální by bylo, kdybych to mohl střídat Už budu muset končit. Užijte si to na výletě. Můžete mi poslat pohled na www.zdvotlabot.cz',
                 ],
 
 
