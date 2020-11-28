@@ -97,6 +97,11 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Aha, tak vám se nechce. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?
 
+        if 'proč ne' in user_reply:
+            conversation_state["col"] = 0
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # Co vyrazit třeba na Pravčickou bránu.
+
         else:
             conversation_state["col"] = 0
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
