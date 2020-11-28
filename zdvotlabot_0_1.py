@@ -39,11 +39,10 @@ co_rika_bot = [[],
                 'To nevadí, i tak vám to jistě prospívá.'],
 
                ['Už budu muset končit. Užijte si to na výletě. Můžete mi poslat pohled na www.zdvotlabot.cz',
-                'Rád jsem se s vámi seznámil. Tak nashle!'],
-
-               ['Palačinky mám tuze rád. Už budu muset končit. Užijte si to na výletě. Můžete mi poslad pohled na www.zdvotlabot.cz',
+                'Rád jsem se s vámi seznámil. Tak nashle!',
+                'Palačinky mám tuze rád. Už budu muset končit. Užijte si to na výletě. Můžete mi poslad pohled na www.zdvotlabot.cz',
                 'A víte že ani nevím?  Ideální by bylo, kdybych to mohl střídat Už budu muset končit. Užijte si to na výletě. Můžete mi poslad pohled na www.zdvotlabot.cz',
-                ]
+                ],
 
 
 
@@ -115,7 +114,7 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         #Tak to si určitě raději čtete.
 
-        if any['ano', 'občas', 'často', 'někdy', 'rád', 'urč'] in user_reply:
+        if any(['ano', 'občas', 'často', 'někdy', 'rád', 'urč']) in user_reply:
             conversation_state["col"] = 4
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         #Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
@@ -298,32 +297,22 @@ def reply(user_reply, nick, conversation_state):
         #Nebo si můžete pustit nějaký film.
 
     if conversation_state['row'] == 5 and conversation_state['col'] == 0:
-        if not 'taky' in user_reply:
-            if 'tak' in user_reply:
-                conversation_state["row"] = 6
-                conversation_state["col"] = 0
-                return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-                #To rád slyším
 
-            if 'urč' in user_reply:
-                conversation_state["row"] = 6
-                conversation_state["col"] = 8
-                return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-                #viďte
-            else:
-                conversation_state["row"] = 6
-                conversation_state["col"] = 9
-                return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-                # do toho švýcarska ale určitě zajeďte
-
-        else:
+        if 'urč' in user_reply or 'věří' in user_reply:
             conversation_state["row"] = 6
             conversation_state["col"] = 8
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-            #do toho švýcarska ale určitě zajeďte
+            #viďte
+        else:
+            conversation_state["row"] = 6
+            conversation_state["col"] = 0
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # to rád slyším
+
+
 
     if conversation_state['row'] == 5 and conversation_state['col'] == 1:
-        if any['třeba', 'možná', 'mohl', 'chtě', 'chc', 'navští'] in user_reply:
+        if any(['třeba', 'možná', 'mohl', 'chtě', 'chc', 'navští']) in user_reply:
             conversation_state["row"] = 6
             conversation_state["col"] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
@@ -368,7 +357,7 @@ def reply(user_reply, nick, conversation_state):
 
     if conversation_state['row'] == 5 and conversation_state['col'] == 6:
 
-        if any['?', 'ano', 'jo', 'občas', 'kdy'] in user_reply:
+        if any(['?', 'ano', 'jo', 'občas', 'kdy']) in user_reply:
             conversation_state["col"] = 5
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # skvělé
@@ -387,12 +376,12 @@ def reply(user_reply, nick, conversation_state):
     if conversation_state['row'] == 6 and conversation_state['col'] == 2 or conversation_state['col'] == 3:
 
         if '?' in user_reply:
-            if all['rád', 'palačinky'] in user_reply:
+            if all(['rád', 'palačinky']) in user_reply:
                 conversation_state["row"] = 7
                 conversation_state["col"] = 2
                 return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
-            if any['chtěl', 'chc', 'form'] in user_reply:
+            if any(['chtěl', 'chc', 'form']) in user_reply:
                 conversation_state["row"] = 7
                 conversation_state["col"] = 3
                 return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
