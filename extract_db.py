@@ -14,8 +14,7 @@ replies = pd.read_sql("reply", db, index_col="id")
 #   >soubor.txt
 
 for user_id, user in users.iterrows():
-    if user_id > 12:
-        if user.nick != "test":
+    if user_id > 12 and user.nick != "test":
             header = f"Konverzace s uživatelem {user.nick!r}, id: {user_id}"
             print(header)
             print("=" * len(header))
