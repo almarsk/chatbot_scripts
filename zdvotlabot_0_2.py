@@ -72,10 +72,10 @@ co_rika_jeste = [[],
 
 
 description = f"Zdvotlabot se učí zdvořile rozprávět.\n Hovořte s ním proto prosím jako s člověkem."
-bg_color = "#d9cc99"
-heading_color = "#b29966"
-reply_bg = "#b29966"
-reply_outline = "#663300"
+bg_color = "#f0e68f"
+heading_color = "#b28066"
+reply_bg = "#d9bf80"
+reply_outline = "#7d2642"
 
 
 
