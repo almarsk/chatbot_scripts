@@ -15,27 +15,28 @@ replies = pd.read_sql("reply", db, index_col="id")
 
 for user_id, user in users.iterrows():
     if user_id > 12:
-        header = f"Konverzace s uživatelem {user.nick!r}, id: {user_id}"
-        print(header)
-        print("=" * len(header))
+        if user.nick != "test":
+            header = f"Konverzace s uživatelem {user.nick!r}, id: {user_id}"
+            print(header)
+            print("=" * len(header))
 
-        print("Metadata:")
-        for col_name, value in user.iteritems():
-            print(f"  {col_name}: {value!r}")
+            print("Metadata:")
+            for col_name, value in user.iteritems():
+                print(f"  {col_name}: {value!r}")
 
-        print("Obsah konverzace:")
-        conversation_with_user = replies.query("user_id == @user_id")
-        for _, reply in conversation_with_user.iterrows():
-            name = (
-                user.scenario
-                # rozdíl mezi botem a člověkem se pozná podle toho, že bot
-                # nemá u reply vyplněný sloupec reaction_ms
-                if pd.isnull(reply.reaction_ms)
-                else f"{user.nick} (po {reply.reaction_ms} ms)"
-            )
-            print(f"  {name}: {reply.content}")
+            print("Obsah konverzace:")
+            conversation_with_user = replies.query("user_id == @user_id")
+            for _, reply in conversation_with_user.iterrows():
+                name = (
+                    user.scenario
+                    # rozdíl mezi botem a člověkem se pozná podle toho, že bot
+                    # nemá u reply vyplněný sloupec reaction_ms
+                    if pd.isnull(reply.reaction_ms)
+                    else f"{user.nick} (po {reply.reaction_ms} ms)"
+                )
+                print(f"  {name}: {reply.content}")
 
-        print()
+            print()
 
 # ------------------------------------------ Export konverzací do Excelu
 
