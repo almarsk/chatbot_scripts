@@ -40,6 +40,7 @@ class User(db.Model):
     scenario = db.Column(db.Text, nullable=False)
     start_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     end_date = db.Column(db.DateTime, default=None)
+    abort = db.Column(db.Boolean, default=None)
     rating = db.Column(db.Integer, default=None)
     comment = db.Column(db.Text, default=None)
 
@@ -94,8 +95,9 @@ def dispatcher():
     except ImportError:
         pass
 
-    if request.args.get("end"):
+    if request.args.get("abort"):
         session["page"] = "outro"
+        session["abort"] = True
         return redirect(url_for("dispatcher"))
 
     page = session.setdefault("page", "intro")
@@ -168,6 +170,7 @@ def outro():
 
         user = User.query.filter_by(id=session["user_id"]).first()
         user.end_date = datetime.utcnow()
+        user.abort = session.get("abort", False)
         user.rating = int(rating)
         user.comment = request.form.get("comment")
 
