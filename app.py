@@ -128,7 +128,7 @@ def intro():
 
 def chat():
     user = User.query.filter_by(id=session["user_id"]).first()
-    user_reply = str(request.form.get("answer")).lower()
+    user_reply = request.form.get("answer")
     if request.method == "POST":
         db.session.add(
             Reply(

@@ -96,7 +96,7 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_jeste[conversation_state["row"]][conversation_state["col"]]
         #děkuji za optání, dnes je hezky že
         else:
-            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+            return [conversation_state["row"]][conversation_state["col"]]
         #Těší mě. Dnes je hezky, že?
 
     if conversation_state['row']==2:
