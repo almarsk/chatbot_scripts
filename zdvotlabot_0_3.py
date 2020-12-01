@@ -1,6 +1,3 @@
-# první tři konverzace - upravit
-
-
 co_rika_bot = [[],
 
                ['Dobrý den, já jsem zvědavobot. A vy?'],
