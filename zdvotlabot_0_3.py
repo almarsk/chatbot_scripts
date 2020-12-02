@@ -86,10 +86,10 @@ def reply(user_reply, nick, conversation_state):
         # Těší mě. Dnes je hezky, že?
 
     if conversation_state['row'] == 2:
-        conversation_state["row"] = 3
+        conversation_state['row'] = 3
 
         if 'záleží' in low_up:
-            conversation_state["col"] = 0
+            conversation_state['col'] = 0
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # bez ohledu na filozofování, výlet?
 
