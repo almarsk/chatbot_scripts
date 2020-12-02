@@ -11,7 +11,7 @@ vstupů od uživatele pomocí systému MorphoDiTa.
 # Seznam dostupných modelů pro systém MorphoDiTa je zde:
 # http://ufal.mff.cuni.cz/morphodita#language_models
 script_dir = Path(__file__).parent
-model_path = str(script_dir / "czech-morfflex-pdt-161115.tagger")
+model_path = str(script_dir / "czech-morfflex-pdt-161115" / "czech-morfflex-pdt-161115.tagger")
 tagger = Tagger(model_path)
 
 
