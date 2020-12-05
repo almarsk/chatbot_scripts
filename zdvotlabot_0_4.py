@@ -240,7 +240,7 @@ def reply(user_reply, nick, conversation_state):
     if conversation_state['row'] == 4 and conversation_state['col'] == 0:
         conversation_state["row"] = 5
 
-        if 'skvělý' in low_up or 'dobrý' in low_up and 'nápad' in low_up:
+        if 'skvělý' in low_up or 'dobrý' in low_up and 'nápad' in low_up or 'by šlo' in low_up:
             conversation_state["col"] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Škoda, že se nemohu přidat.
