@@ -425,43 +425,43 @@ def reply(user_reply, nick, conversation_state):
     if conversation_state['row'] == 6 and conversation_state['col'] == 0 or conversation_state['col'] == 1:
         if 'co takhle' in low_up or 'co kdyby' in low_up:
             conversation_state['row'] = 7
-            conversation_state['row'] = 0
+            conversation_state['col'] = 0
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
         if '?' in low_up or 'víte' in low_up or 'věděl' in low_up:
             conversation_state['row'] = 7
-            conversation_state['row'] = 1
+            conversation_state['col'] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
         else:
             conversation_state['row'] = 7
-            conversation_state['row'] = 2
+            conversation_state['col'] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
     if conversation_state['row'] == 6 and conversation_state['col'] == 2 or conversation_state['col'] == 3:
         if '?' in low_up and 'palač' in low_up:
             conversation_state['row'] = 7
-            conversation_state['row'] = 3
+            conversation_state['col'] = 3
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
         if '?' in low_up and 'form' in low_up:
             conversation_state['row'] = 7
-            conversation_state['row'] = 4
+            conversation_state['col'] = 4
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
         if 'co takhle' in low_up or 'co kdyby' in low_up:
             conversation_state['row'] = 7
-            conversation_state['row'] = 0
+            conversation_state['col'] = 0
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
         if 'víte' in low_up or 'věděl' in low_up:
             conversation_state['row'] = 7
-            conversation_state['row'] = 1
+            conversation_state['col'] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
         else:
             conversation_state['row'] = 7
-            conversation_state['row'] = 2
+            conversation_state['col'] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
     if conversation_state['row'] == 6 and conversation_state['col'] == 4 or conversation_state['col'] == 5:
