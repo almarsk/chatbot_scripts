@@ -240,21 +240,21 @@ def reply(user_reply, nick, conversation_state):
     if conversation_state['row'] == 4 and conversation_state['col'] == 0:
         conversation_state["row"] = 5
 
-        if 'skvělý' in low_up or 'dobrý' in low_up:
+        if 'skvělý' in low_up or 'dobrý' in low_up and 'nápad' in low_up:
             conversation_state["col"] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Škoda, že se nemohu přidat.
 
-        if 'nebo' in low_up and 'třeba' in low_up or 'jste' in low_up:
+        if 'raději' in low_up or 'co třeba' in low_up or 'už jste' in low_up or 'nebo' in low_up:
             conversation_state["row"] = 6
             conversation_state["col"] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
             # To je skvělý nápad
 
-        if 'ještě' in low_up or 'nikdy' in low_up or 'nezn' in low_up:
+        if 'neznám' in low_up or 'nebyl' in low_up or 'ještě' in low_up:
             conversation_state["col"] = 0
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-        # Skutečně? České Švýcarsko je nádherná oblast. Doufám, že tam někdy zavítáte. Určitě se vám tam bude líbit.
+            # Skutečně? České Švýcarsko je nádherná oblast. Doufám, že tam někdy zavítáte. Určitě se vám tam bude líbit.
 
         if 'už' in low_up or 'ne ' in low_up or ' ne' in low_up or low_up == 'ne':
             conversation_state["col"] = 1
@@ -267,7 +267,6 @@ def reply(user_reply, nick, conversation_state):
         # Aha, tak jinam.
 
         if 'nemysl' in low_up and 'otevř':
-            conversation_state["row"] = 5
             conversation_state["col"] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Aha, tak jinam
@@ -423,7 +422,7 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
             # zajímavé končím
 
-    if conversation_state['row'] == 6 and conversation_state['col'] < 2:
+    if conversation_state['row'] == 6 and conversation_state['col'] == 0 or conversation_state['col'] == 1:
         if 'co takhle' in low_up or 'co kdyby' in low_up:
             conversation_state['row'] = 7
             conversation_state['row'] = 0
