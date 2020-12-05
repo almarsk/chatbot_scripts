@@ -266,12 +266,12 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Aha, tak jinam.
 
-        if 'pozdě' in low_up or 'zima' or 'zavře':
+        if 'pozdě' in low_up or 'zima' or 'zavře' in low_up:
             conversation_state["col"] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Aha, tak jinam.
 
-        if 'nemysl' in low_up and 'otevř':
+        if 'nemysl' in low_up and 'otevř' in low_up:
             conversation_state["col"] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Aha, tak jinam
