@@ -261,22 +261,12 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
             # Skutečně? České Švýcarsko je nádherná oblast. Doufám, že tam někdy zavítáte. Určitě se vám tam bude líbit.
 
-        if 'už' in low_up or 'ne ' in low_up or ' ne' in low_up or low_up == 'ne':
-            conversation_state["col"] = 1
-            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-        # Aha, tak jinam.
 
-        if 'pozdě' in low_up or 'zima' or 'zavře':
-            conversation_state["col"] = 1
-            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-        # Aha, tak jinam.
 
-        if 'nemysl' in low_up and 'otevř':
-            conversation_state["col"] = 1
-            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-        # Aha, tak jinam
+
 
         else:
+            conversation_state["row"] = 5
             conversation_state["col"] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Škoda, že se nemohu přidat.
