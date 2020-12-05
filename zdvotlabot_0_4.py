@@ -46,7 +46,7 @@ co_rika_bot = [[],
                 'Tak to je zajímavé. Budu muset končit. Doufám, že vás četba obohatí.',
                 'Tak to je skvělé. Už budu muset končit, užijte si film!',
                 'Zajímavé. Už budu muset končit, ale přeji vám příjemný poslech.',
-                'Už budu muset končit. Přeji vám příjemný poslech.',
+                'Už budu muset končit. Přeji vám příjemný poslech!',
                 'Vážná hudba má na své posluchače blahodárné účinky.  Už budu muset končit. Přeji vám příjemný poslech.',
 
                 ],
@@ -471,15 +471,8 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
     if conversation_state['row'] == 6 and conversation_state['col'] == 4 or conversation_state['col'] == 5:
-
-        if len(low_up) > 10:
             conversation_state["row"] = 7
             conversation_state["col"] = 8
-            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-
-        else:
-            conversation_state["row"] = 7
-            conversation_state["col"] = 7
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
     if conversation_state['row'] == 6 and conversation_state['col'] == 6:
