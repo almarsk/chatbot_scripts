@@ -27,7 +27,7 @@ co_rika_bot = [[],
                 'Tak to je škoda, že tam nemůžu jet.',
                 'Čtení je i má záliba. Nejraději mám Zločin a trest.',
                 'Já mám nejradši pixarovky, a vy?',
-                'Aha. V této oblasti se příliš nevyznám. Neposloucháte někdy vážnou hudbu?',
+                'Aha a neposloucháte někdy vážnou hudbu?',
                 ],
 
                ['Viďte.',
@@ -207,6 +207,11 @@ def reply(user_reply, nick, conversation_state):
     if conversation_state['row'] == 3 and conversation_state['col'] > 2:
         conversation_state["row"] = 4
 
+        if 'nej' in low_up:
+            conversation_state["col"] = 5
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # Skutečně? Já také. Jaké žánry či hudebníky posloucháte nějraději?
+
         if 'ne' in low_up:
             conversation_state["col"] = 3
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
@@ -266,7 +271,7 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Aha, tak jinam.
 
-        if 'pozdě' in low_up or 'zima' or 'zavře' in low_up:
+        if 'pozdě' in low_up or 'zima' in low_up or 'zavře' in low_up:
             conversation_state["col"] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Aha, tak jinam.
@@ -313,7 +318,13 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Nebo si můžete pustit nějaký film.
 
-    if conversation_state['row'] == 4 and conversation_state['col'] == 3 or conversation_state['col'] == 4:
+    if conversation_state['row'] == 4 and conversation_state['col'] == 3:
+        conversation_state["row"] = 5
+        conversation_state["col"] = 5
+        return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # Já mám nejradši pixarovky, a vy?
+
+    if conversation_state['row'] == 4 and conversation_state['col'] == 4:
         conversation_state["row"] = 5
         conversation_state["col"] = 5
         return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
@@ -359,16 +370,37 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # to rád slyším
 
+    if conversation_state['row'] == 5 and conversation_state['col'] == 1:
+        conversation_state["row"] = 6
+
+        if '?' in low_up or 'proč' in low_up:
+            conversation_state["col"] = 2
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # Inu, nedisponuji
+
+        else:
+            conversation_state["col"] = 3
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # Ano, nedisponuji
+
     if conversation_state['row'] == 5 and conversation_state['col'] == 2:
-        conversation_state["row"] = 6
-        conversation_state["col"] = 1
-        return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-        # To je skvělý nápad.
 
-    if conversation_state['row'] == 5 and conversation_state['col'] == 1 or conversation_state['col'] == 3:
+        if 'chc' in low_up or 'radš' in low_up or 'radě' in low_up:
+            conversation_state["row"] = 3
+            conversation_state["col"] = 6
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # Aha, tak vám se nechce. Tak to je asi lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?
+
+        else:
+            conversation_state["row"] = 6
+            conversation_state["col"] = 1
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+            # To je skvělý nápad.
+
+    if conversation_state['row'] == 5 and conversation_state['col'] == 3:
         conversation_state["row"] = 6
 
-        if '?' in low_up:
+        if '?' in low_up or 'proč' in low_up:
             conversation_state["col"] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Inu, nedisponuji
@@ -404,17 +436,17 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
             # zajímvaé končím
 
-        if 'ano' in low_up or 'občas' in low_up or 'často' in low_up:
-            conversation_state["row"] = 6
-            conversation_state["col"] = 4
-            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-        # To je dobře. Už budu muset končit, ale přeji vám příjemný poslech.
-
         if 'bach' in low_up:
             conversation_state["row"] = 6
             conversation_state["col"] = 5
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
             # Tak to je skvělé, to máte výborný vkus. Já také nejraději poslouchám Johanna Sebastiana Bacha.
+
+        if 'ano' in low_up or 'občas' in low_up or 'často' in low_up:
+            conversation_state["row"] = 6
+            conversation_state["col"] = 4
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+        # To máte výborný vkus
 
         if 'troch' in low_up or 'troš' in low_up or 'mál' in low_up or 'méně' in low_up:
             conversation_state["row"] = 6
@@ -428,7 +460,7 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
             # zajímavé končím
 
-    if conversation_state['row'] == 6 and conversation_state['col'] == 0 or conversation_state['col'] == 1:
+    if conversation_state['row'] == 6 and conversation_state['col'] < 2:
         if 'co takhle' in low_up or 'co kdyby' in low_up:
             conversation_state['row'] = 7
             conversation_state['col'] = 0
@@ -444,7 +476,7 @@ def reply(user_reply, nick, conversation_state):
             conversation_state['col'] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
-    if conversation_state['row'] == 6 and conversation_state['col'] == 2 or conversation_state['col'] == 3:
+    if conversation_state['row'] == 6 and conversation_state['col'] > 1:
         if '?' in low_up and 'palač' in low_up:
             conversation_state['row'] = 7
             conversation_state['col'] = 3
@@ -471,9 +503,9 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
     if conversation_state['row'] == 6 and conversation_state['col'] == 4 or conversation_state['col'] == 5:
-            conversation_state['row'] = 7
-            conversation_state['col'] = 8
-            return co_rika_bot[conversation_state['row']][conversation_state['col']]
+        conversation_state['row'] = 7
+        conversation_state['col'] = 8
+        return co_rika_bot[conversation_state['row']][conversation_state['col']]
 
     if conversation_state['row'] == 6 and conversation_state['col'] == 6:
 
@@ -491,3 +523,10 @@ def reply(user_reply, nick, conversation_state):
         conversation_state['row'] = 8
         conversation_state['col'] = 0
         return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+
+
+
+
+
+
+
