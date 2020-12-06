@@ -22,8 +22,8 @@ co_rika_bot = [[],
                 ],
 
                ['Skutečně? České Švýcarsko je nádherná oblast. Doufám, že tam někdy zavítáte. Určitě se vám tam bude líbit.',
-                'Aha, tak možná někam jinam?',
                 'Škoda, že se nemohu přidat.',
+                'Aha, tak možná někam jinam?',
                 'Tak to je škoda, že tam nemůžu jet.',
                 'Čtení je i má záliba. Nejraději mám Zločin a trest.',
                 'Já mám nejradši pixarovky, a vy?',
@@ -241,12 +241,12 @@ def reply(user_reply, nick, conversation_state):
         conversation_state["row"] = 5
 
         if 'skvělý' in low_up or 'dobrý' in low_up and 'nápad' in low_up:
-            conversation_state["col"] = 2
+            conversation_state["col"] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Škoda, že se nemohu přidat.
 
         if 'by šlo' in low_up or 'proč ne' in low_up or 'proč by ne' in low_up:
-            conversation_state["col"] = 2
+            conversation_state["col"] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Škoda, že se nemohu přidat.
 
@@ -262,23 +262,23 @@ def reply(user_reply, nick, conversation_state):
             # Skutečně? České Švýcarsko je nádherná oblast. Doufám, že tam někdy zavítáte. Určitě se vám tam bude líbit.
 
         if 'už' in low_up or 'ne ' in low_up or ' ne' in low_up or low_up == 'ne':
-            conversation_state["col"] = 1
+            conversation_state["col"] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Aha, tak jinam.
 
         if 'pozdě' in low_up or 'zima' or 'zavře' in low_up:
-            conversation_state["col"] = 1
+            conversation_state["col"] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Aha, tak jinam.
 
         if 'nemysl' in low_up and 'otevř' in low_up:
-            conversation_state["col"] = 1
+            conversation_state["col"] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Aha, tak jinam
 
         else:
             conversation_state["row"] = 5
-            conversation_state["col"] = 2
+            conversation_state["col"] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # Škoda, že se nemohu přidat.
 
@@ -359,13 +359,13 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # to rád slyším
 
-    if conversation_state['row'] == 5 and conversation_state['col'] == 1:
+    if conversation_state['row'] == 5 and conversation_state['col'] == 2:
         conversation_state["row"] = 6
         conversation_state["col"] = 1
         return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # To je skvělý nápad.
 
-    if conversation_state['row'] == 5 and conversation_state['col'] == 2 or conversation_state['col'] == 3:
+    if conversation_state['row'] == 5 and conversation_state['col'] == 1 or conversation_state['col'] == 3:
         conversation_state["row"] = 6
 
         if '?' in low_up:
@@ -471,15 +471,15 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
     if conversation_state['row'] == 6 and conversation_state['col'] == 4 or conversation_state['col'] == 5:
-            conversation_state["row"] = 7
-            conversation_state["col"] = 8
-            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+            conversation_state['row'] = 7
+            conversation_state['col'] = 8
+            return co_rika_bot[conversation_state['row']][conversation_state['col']]
 
     if conversation_state['row'] == 6 and conversation_state['col'] == 6:
 
         if 'proč' in low_up or '?' in low_up:
-            conversation_state["row"] = 7
-            conversation_state["col"] = 9
+            conversation_state['row'] = 7
+            conversation_state['col'] = 9
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
         else:
