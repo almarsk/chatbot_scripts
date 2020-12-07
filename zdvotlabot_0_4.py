@@ -430,7 +430,7 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # To je dobře. Už budu muset končit, ale přeji vám příjemný poslech.
 
-        if 'ne' in low_up or 'nikdy' in low_up or 'nerad' in low_up:
+        if 'ne ' in low_up or 'nikdy' in low_up or 'nerad' in low_up or ' ne' in low_up or low_up == 'ne':
             conversation_state["row"] = 7
             conversation_state["col"] = 7
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
