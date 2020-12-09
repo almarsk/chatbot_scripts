@@ -59,10 +59,10 @@ co_rika_bot = [[],
                ]
 
 description = f"Zdvotlabot se učí zdvořile rozprávět.\n Hovořte s ním proto prosím jako s člověkem."
-bg_color = "#d19e6b"
-heading_color = "#75420f"
-reply_bg = "#9c6936"
-reply_outline = "#663300"
+bg_color = "#ffeb99"
+heading_color = "#ffcc00"
+reply_bg = "#fff0b3"
+reply_outline = "#ffcc00"
 
 
 def reply(user_reply, nick, conversation_state):
