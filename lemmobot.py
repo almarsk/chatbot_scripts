@@ -18,11 +18,9 @@ script_dir = Path(__file__).parent
 model_path = str(script_dir / "czech-morfflex-pdt-161115" / "czech-morfflex-pdt-161115.tagger")
 tagger = Tagger(model_path)
 
-def reply(user_reply, nick, conversation_state):
+"""def reply(user_reply, nick, conversation_state):
     low_up = str(user_reply).lower()
-    conversation_state.setdefault("row", 0)
-    conversation_state.setdefault("col", 0)
     tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
 
-    if all(t.tag[1] == "V" for t in tagged and t.tag[8] == "2" for t in tagged) in low_up:
-        return f"{t.lemma}"
+    if all(t.tag[1] == "V" for t in tagged and t.tag[8] == "2" for t in tagged):
+        return f"bylo užito sloveso v druhé osobě"""
