@@ -25,5 +25,4 @@ def reply(user_reply, nick, conversation_state):
     tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
 
     if all(t.tag[10] == "N" for t in tagged and t.tag[8] == "2" for t in tagged):
-        conversation_state['row'] = 1
         return f"{t.lemma}"
