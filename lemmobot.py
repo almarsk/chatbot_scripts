@@ -18,6 +18,7 @@ script_dir = Path(__file__).parent
 model_path = str(script_dir / "czech-morfflex-pdt-161115" / "czech-morfflex-pdt-161115.tagger")
 tagger = Tagger(model_path)
 
+
 """def reply(user_reply, nick, conversation_state):
     low_up = str(user_reply).lower()
     tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
