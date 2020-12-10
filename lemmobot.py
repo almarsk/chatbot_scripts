@@ -5,10 +5,10 @@ description = """
 Lemmobot dovede rozeznat slovesa v druhé osobě ve vstupech od uživatele pomocí systému MorphoDita.
 """.strip()
 
-bg_color = "#F0FFFF"
-heading_color = "#00e673"
-reply_bg = "#ccffff"
-reply_outline = "#000"
+bg_color = "#dbaf7d"
+heading_color = "#c28a4a"
+reply_bg = "#9e7d3a"
+reply_outline = "#a35e0f"
 
 # Před použitím scénáře je potřeba stáhnout model, na základě kterého se
 # značkování provede, a uložit ho ve stejném adresáři jako scénář.
@@ -24,5 +24,5 @@ def reply(user_reply, nick, conversation_state):
     conversation_state.setdefault("col", 0)
     tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
 
-    if all(t.tag[10] == "N" for t in tagged and t.tag[8] == "2" for t in tagged):
+    if all(t.tag[10] == "N" for t in tagged and t.tag[8] == "2" for t in tagged) in low_up:
         return f"{t.lemma}"
