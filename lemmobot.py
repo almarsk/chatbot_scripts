@@ -24,5 +24,5 @@ def reply(user_reply, nick, conversation_state):
     conversation_state.setdefault("col", 0)
     tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
 
-    if all(t.tag[10] == "N" for t in tagged and t.tag[8] == "2" for t in tagged) in low_up:
+    if all(t.tag[1] == "V" for t in tagged and t.tag[8] == "2" for t in tagged) in low_up:
         return f"{t.lemma}"
