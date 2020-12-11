@@ -38,4 +38,4 @@ def reply(user_reply, nick, cs):
             a= "Teda, " + str(prisudek_2) + " vůbec neumím."
             return a
         else:
-            return f"V odpovědi sloveso v druhé osobě není {tagged}"
+            return f"V odpovědi sloveso v první osobě není {tagged}"
