@@ -20,5 +20,8 @@ tagger = Tagger(model_path)
 
 
 def reply(user_reply, nick, conversation_state):
+    low_up = str(user_reply).lower()
+    tagged = list(tagger.tag(low_up or "", convert="strip_lemma_id"))
+
 
         return f"bylo užito sloveso v druhé osobě"
