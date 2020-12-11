@@ -30,6 +30,6 @@ def reply(user_reply, nick, cs):
     else:
         cs['row'] += 1
         if all(t.tag[0] == 'V' and t.tag[7] == '2' for t in tagged):
-            return "V odpovědi je sloveso v druhé osobě"
+            return f"V odpovědi je sloveso v druhé osobě {tagged}"
         else:
-            return "V odpovědi sloveso v druhé osobě není"
+            return f"V odpovědi sloveso v druhé osobě není {tagged}"
