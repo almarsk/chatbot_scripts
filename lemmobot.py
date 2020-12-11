@@ -30,12 +30,12 @@ def reply(user_reply, nick, cs):
     else:
         cs['row'] += 1
         if any(t.tag[0] == 'V' and t.tag[7] == '2' for t in tagged):
-            přísudek_v_druhé_osobě = {
+            prisudek_2 = {
                 t.lemma
                 for t in tagged
                 if t.tag[7] == '2'
             }
-            a= "V odpovědi je sloveso v druhé osobě, které má lemma" + str(přísudek_v_druhé_osobě)
+            a= "V odpovědi je sloveso v druhé osobě, které má lemma" + str(prisudek_2)
             return a
         else:
             return f"V odpovědi sloveso v druhé osobě není {tagged}"
