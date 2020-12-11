@@ -35,6 +35,6 @@ def reply(user_reply, nick, cs):
                 for t in tagged
                 if t.tag[7] == '2'
             }
-            return "V odpovědi je sloveso v druhé osobě, které má lemma " + str(přísudek_v_druhé_osobě)
+            return "V odpovědi je sloveso v druhé osobě, které má lemma {n}".format(n=přísudek_v_druhé_osobě)
         else:
             return f"V odpovědi sloveso v druhé osobě není {tagged}"
