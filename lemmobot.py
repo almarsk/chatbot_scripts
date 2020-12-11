@@ -21,4 +21,6 @@ tagger = Tagger(model_path)
 
 def reply(user_reply, nick, cs):
     tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
-    return f"Odpověď uživatele {nick} obohacená o lemmatizaci a morfologické značkování: {tagged}"
+
+    if any(t.tag[1] == 'V' for t in tagged) or any(t.tag[8] == '2' for t in tagged)
+        return "V odpovědi je sloveso v durhé osobě"
