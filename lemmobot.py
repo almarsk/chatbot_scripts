@@ -2,7 +2,7 @@ from pathlib import Path
 from corpy.morphodita import Tagger
 
 description = """
-Lemmobot dovede rozeznat slovesa v druhé osobě ve vstupech od uživatele pomocí systému MorphoDita.
+Lemmobot dovede hlásit užití sloves v druhé osobě ve vstupech od uživatele pomocí systému MorphoDita.
 """.strip()
 
 bg_color = "#dbaf7d"
@@ -19,7 +19,6 @@ model_path = str(script_dir / "czech-morfflex-pdt-161115" / "czech-morfflex-pdt-
 tagger = Tagger(model_path)
 
 
-def reply(user_reply, nick, conversation_state):
-    low_up = str(user_reply).lower()
-    tagged = list(tagger.tag(low_up or "", convert="strip_lemma_id"))
-    return f"bylo užito sloveso v druhé osobě"
+def reply(user_reply, nick, cs):
+    tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
+    return f"Odpověď uživatele {nick} obohacená o lemmatizaci a morfologické značkování: {tagged}"
