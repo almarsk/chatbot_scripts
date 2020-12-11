@@ -33,7 +33,7 @@ def reply(user_reply, nick, cs):
             prisudek_2 = {
                 t.lemma
                 for t in tagged
-                if t.tag[7] == '2'
+                if t.tag[7] == '1'
             }
             a= "Teda, " + str(prisudek_2) + " vůbec neumím."
             return a
