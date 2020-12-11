@@ -25,7 +25,7 @@ def reply(user_reply, nick, cs):
     cs.setdefault("col", 0)
     if cs['row'] == 0:
         cs['row'] += 1
-        return "Dobrý den, já jsem bot a umím poznat, jestli používáte sloveso v druhé osobě."
+        return "Dobrý den, co děláte ve svém volném čase?"
 
     else:
         cs['row'] += 1
@@ -35,7 +35,7 @@ def reply(user_reply, nick, cs):
                 for t in tagged
                 if t.tag[7] == '2'
             }
-            a= "V odpovědi je sloveso v druhé osobě, které má lemma" + str(prisudek_2)
+            a= "Teda, " + str(prisudek_2) + " vůbec neumím."
             return a
         else:
             return f"V odpovědi sloveso v druhé osobě není {tagged}"
