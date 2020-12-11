@@ -25,13 +25,10 @@ def reply(user_reply, nick, cs):
     cs.setdefault("col", 0)
     if cs['row'] == 0:
         cs['row'] += 1
-
-        if any(t.tag[1] == 'V' for t in tagged) and any(t.tag[8] == '2' for t in tagged):
-            return "V odpovědi je sloveso v druhé osobě"
-        else:
-            return "V odpovědi sloveso v druhé osobě není"
+        return "Dobrý den, já jsem bot a umím poznat, jestli používáte sloves ov durhé osobě."
 
     else:
+        cs['row'] += 1
         if any(t.tag[1] == 'V' for t in tagged) and any(t.tag[8] == '2' for t in tagged):
             return "V odpovědi je sloveso v druhé osobě"
         else:
