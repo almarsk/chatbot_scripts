@@ -29,7 +29,7 @@ def reply(user_reply, nick, cs):
 
     else:
         cs['row'] += 1
-        if any(t.tag[0] == 'V' and t.tag[7] == '2' for t in tagged):
+        if any(t.tag[0] == 'V' and t.tag[7] == '1' for t in tagged):
             prisudek_2 = {
                 t.lemma
                 for t in tagged
