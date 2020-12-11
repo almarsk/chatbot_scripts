@@ -29,7 +29,7 @@ def reply(user_reply, nick, cs):
 
     else:
         cs['row'] += 1
-        if all(t.tag[1] == 'V' and t.tag[8] == '2' for t in tagged):
+        if all(t.tag[0] == 'V' and t.tag[7] == '2' for t in tagged):
             return "V odpovědi je sloveso v druhé osobě"
         else:
             return "V odpovědi sloveso v druhé osobě není"
