@@ -1,5 +1,6 @@
 from pathlib import Path
 from corpy.morphodita import Tagger
+from pprint import pprint
 
 description = """
 Lemmobot dovede hlásit užití sloves v druhé osobě ve vstupech od uživatele pomocí systému MorphoDita.
@@ -30,4 +31,4 @@ def reply(user_reply, nick, cs):
 
     else:
         cs['row'] +=1
-        return tagged
+        pprint(tagged)
