@@ -23,20 +23,20 @@ def reply(user_reply, nick, cs):
     tagged = list(tagger.tag(text=user_reply or "", sents=True, guesser=False, convert="strip_lemma_id"))
     cs.setdefault("row", 0)
     cs.setdefault("col", 0)
-    if cs['row'] == 0 or cs['row'] > 0:
+    if cs['row'] == 0:
         cs['row'] += 1
-        return tagged
+        return "dobrý den, já jsem lemmobot"
 
 
     else:
-        cs['row'] = 10
-        if any(t.tag[0] == 'V' and t.tag[7] == '1' for t in tagged):
-            prisudek_2 = [
-                t.lemma
-                for t in tagged
-                if t.tag[7] == '1'
-            ]
-            a= "Teda, " + prisudek_2[0] + " vůbec neumím"
-            return a
-        else:
-            return f"V odpovědi sloveso v první osobě není {tagged}"
+        cs['row'] +=1
+#        if any(t.tag[0] == 'V' and t.tag[7] == '1' for t in tagged):
+#            prisudek_2 = [
+#                t.lemma
+#                for t in tagged
+#                if t.tag[7] == '1'
+#            ]
+#            a= "Teda, " + prisudek_2[0] + " vůbec neumím"
+        return tagged
+#        else:
+#            return f"V odpovědi sloveso v první osobě není {tagged}"
