@@ -23,12 +23,13 @@ def reply(user_reply, nick, cs):
     tagged = list(tagger.tag(text=user_reply or "", sents=True, guesser=False, convert="strip_lemma_id"))
     cs.setdefault("row", 0)
     cs.setdefault("col", 0)
-    if cs['row'] == 0:
+    if cs['row'] == 0 or cs['row'] > 0:
         cs['row'] += 1
-        return f"Dobrý den, co děláte ve svém volném čase? {tagged}"
+        return tagged
+
 
     else:
-        cs['row'] += 1
+        cs['row'] = 10
         if any(t.tag[0] == 'V' and t.tag[7] == '1' for t in tagged):
             prisudek_2 = [
                 t.lemma
