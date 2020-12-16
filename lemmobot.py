@@ -20,12 +20,12 @@ tagger = Tagger(model_path)
 
 
 def reply(user_reply, nick, cs):
-    tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
+    tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id", sents=True))
     cs.setdefault("row", 0)
     cs.setdefault("col", 0)
     if cs['row'] == 0:
         cs['row'] += 1
-        return "Dobrý den, co děláte ve svém volném čase?"
+        return f"Dobrý den, co děláte ve svém volném čase? {tagged}"
 
     else:
         cs['row'] += 1
@@ -35,7 +35,7 @@ def reply(user_reply, nick, cs):
                 for t in tagged
                 if t.tag[7] == '1'
             ]
-            a= "Teda, " + prisudek_2[0] + " vůbec neumím."
+            a= "To je zajímavé, a jak dlouho už " + prisudek_2[0] + "."
             return a
         else:
             return f"V odpovědi sloveso v první osobě není {tagged}"
