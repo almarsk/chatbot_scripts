@@ -3,7 +3,7 @@ from corpy.morphodita import Tagger
 from ufal.morphodita import TaggedLemmasForms
 
 description = """
-Lemmobot dovede hlásit užití sloves v druhé osobě ve vstupech od uživatele pomocí systému MorphoDita.
+Zvědavobot se učí klást  a odpovídat na otázky.
 """.strip()
 
 bg_color = "#dbaf7d"
@@ -58,10 +58,20 @@ def reply(user_reply, nick, cs):
     cs.setdefault("col", 0)
     if cs['row'] == 0:
         cs['row'] += 1
-        return "Dobrý den, já jsem zvědavobot bot a učím se klást otázky a rozumět otázkám jiných. Co děláte ve volném čase?"
+        return "Dobrý den, já jsem zvědavobot. Co děláte ve volném čase?"
 
 
     else:
-        if any(t.tag[7] == "1" for t in tagged[0]):
+        if any(t.tag[7] == "1" for t in tagged):
+            cs['row'] +=1
+            verb = [
+                tagger.generate(t.lemma, "Vf----------")
+                for t in tagged
+                if any(t.tag[7] == "1" for t in tagged)
+            ]
+
+            return f"Teda, {verb[0]} vůbec neumím. Čemu ještě se věnujete?"
+
+        if any(t.tag[1] == "f" for t in tagged):
             cs['row'] +=1
             return str(tagged)
