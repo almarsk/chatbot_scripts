@@ -31,4 +31,4 @@ def reply(user_reply, nick, cs):
 
     else:
         cs['row'] +=1
-        return tagged
+        return str(tagged)
