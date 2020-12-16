@@ -20,7 +20,7 @@ tagger = Tagger(model_path)
 
 
 def reply(user_reply, nick, cs):
-    tagged = list(tagger.tag(text=user_reply or "", sents=True, convert="strip_lemma_id"))
+    tagged = list(tagger.tag(text=user_reply or "", sents=True, guesser=False, convert="strip_lemma_id"))
     cs.setdefault("row", 0)
     cs.setdefault("col", 0)
     if cs['row'] == 0:
