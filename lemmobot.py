@@ -30,5 +30,6 @@ def reply(user_reply, nick, cs):
 
 
     else:
-        cs['row'] +=1
-        return str(tagged)
+        if any(t.tag[7] == "1" for t in tagged[0]):
+            cs['row'] +=1
+            return str(tagged)
