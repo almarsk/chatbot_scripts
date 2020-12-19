@@ -52,7 +52,6 @@ Tagger.generate = generate
 def gen_rep(user_reply, nick):
     tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
 
-    tagged_dict = tagged.dict.fromkeys()
 
     if any(t.tag[7] == '2' for t in tagged):
         verb = [
@@ -69,7 +68,6 @@ def gen_rep(user_reply, nick):
 
 
 def reply(user_reply, nick, cs):
-    tagged = list(tagger.tag(text = user_reply or "", sents=True, convert="strip_lemma_id"))
     cs.setdefault("row", 0)
     cs.setdefault("col", 0)
 
@@ -80,7 +78,7 @@ def reply(user_reply, nick, cs):
 
     else:
         cs['row'] += 1
-        return gen_rep(user_reply, nick)
+        gen_rep(user_reply, nick)
 
 
 
