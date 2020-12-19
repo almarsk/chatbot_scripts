@@ -234,7 +234,7 @@ def reply(user_reply, nick, conversation_state):
     if conversation_state['row'] == 3 and conversation_state['col'] > 2:
         conversation_state["row"] = 4
 
-        if ('vy' or 'ty' in low_up) and ('také' or 'taky') in low_up:
+        if ('vy' or 'ty') in low_up and ('také' or 'taky') in low_up:
             conversation_state["col"] = 6
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         #  Ano,Já také! Jaké žánry či hudebníky posloucháte nějraději?
