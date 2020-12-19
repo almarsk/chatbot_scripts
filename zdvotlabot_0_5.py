@@ -207,7 +207,7 @@ def reply(user_reply, nick, conversation_state):
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
             # Aha, tak to je lepší zůstat doma a číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?
 
-        if 'včera' in low_up and ('lép' or 'líp') in low_up:
+        if 'včera' in low_up and ('lép' in low_up or 'líp' in low_up):
             conversation_state["row"] = 3
             conversation_state["col"] = 4
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
@@ -546,7 +546,7 @@ def reply(user_reply, nick, conversation_state):
             conversation_state['col'] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
-        if '?' in low_up and ('form' or 'tělo') in low_up:
+        if '?' in low_up and ('form' in low_up or 'tělo' in low_up):
             conversation_state['row'] = 7
             conversation_state['col'] = 2
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
@@ -583,6 +583,8 @@ def reply(user_reply, nick, conversation_state):
         conversation_state['row'] = 8
         conversation_state['col'] = 0
         return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+
+
 
 
 
