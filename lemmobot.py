@@ -49,6 +49,22 @@ def generate(tagger: Tagger, lemma: str, tag_wildcard: str = None):
 # místo `generate(tagger, ...)`
 Tagger.generate = generate
 
+def gen_rep(user_reply, nick):
+    tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
+
+    tagged_dict = tagged.dict.fromkeys()
+
+    if any(t.tag[7] == '2' for t in tagged):
+        verb = [
+            t.lemma
+            for t in tagged
+            if t.tag[7] == '2'
+        ]
+
+        if verb[0] == 'dělat':
+            return 'Většinou čekám, až si se mnou začne někdo povídat.'
+
+
 
 
 
@@ -56,12 +72,10 @@ def reply(user_reply, nick, cs):
     tagged = list(tagger.tag(text = user_reply or "", sents=True, convert="strip_lemma_id"))
     cs.setdefault("row", 0)
     cs.setdefault("col", 0)
-    if cs['row'] == 0:
-        cs['row'] += 1
-        return "Dobrý den, já jsem zvědavobot bot a učím se klást otázky a rozumět otázkám jiných. Co děláte ve volném čase?"
+
+    gen_rep(user_reply, nick)
 
 
-    else:
-        if any(t.tag[7] == "1" for t in tagged[0]):
-            cs['row'] +=1
-            return str(tagged)
+
+
+
