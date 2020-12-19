@@ -78,7 +78,7 @@ def reply(user_reply, nick, conversation_state):
     if conversation_state['row'] == 1:
         conversation_state["row"] = 2
 
-        if '?' in low_up or 'jak se' in low_up:
+        if 'jak se' in low_up:
             conversation_state['col'] = 1
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
         # děkuji za optání, dnes je hezky že
