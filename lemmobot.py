@@ -73,6 +73,18 @@ def reply(user_reply, nick, cs):
     cs.setdefault("row", 0)
     cs.setdefault("col", 0)
 
+    def gen_rep(user_reply, nick):
+        tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
+
+        if any(t.tag[7] == '2' for t in tagged):
+            verb = [
+                t.lemma
+                for t in tagged
+                if t.tag[7] == '2'
+            ]
+
+            if verb[0] == 'dělat':
+                rep = 'Většinou čekám, až si se mnou začne někdo povídat.'
 
     if cs['row'] == 0:
         cs['row'] += 1
@@ -80,7 +92,7 @@ def reply(user_reply, nick, cs):
 
     else:
         cs['row'] += 1
-        return rep
+        return gen_rep(user_reply, nick)
 
 
 
