@@ -84,7 +84,7 @@ def reply(user_reply, nick, cs):
             ]
 
             if verb[0] == 'dělat':
-                rep = 'Většinou čekám, až si se mnou začne někdo povídat.'
+                return 'Většinou čekám, až si se mnou začne někdo povídat.'
 
     if cs['row'] == 0:
         cs['row'] += 1
@@ -92,7 +92,7 @@ def reply(user_reply, nick, cs):
 
     else:
         cs['row'] += 1
-        return gen_rep(user_reply, nick)
+        gen_rep(user_reply, nick)
 
 
 
