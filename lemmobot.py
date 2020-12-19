@@ -75,10 +75,11 @@ def reply(user_reply, nick, cs):
 
 
     if cs['row'] == 0:
-
+        cs['row'] += 1
         return "Dobrý den"
 
     else:
+        cs['row'] += 1
         return gen_rep(user_reply, nick)
 
 
