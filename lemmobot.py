@@ -73,7 +73,13 @@ def reply(user_reply, nick, cs):
     cs.setdefault("row", 0)
     cs.setdefault("col", 0)
 
-    gen_rep(user_reply, nick)
+
+    if cs['row'] == 0:
+
+        return "Dobrý den"
+
+    else:
+        return gen_rep(user_reply, nick)
 
 
 
