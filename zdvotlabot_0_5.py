@@ -91,6 +91,12 @@ def reply(user_reply, nick, conversation_state):
     if conversation_state['row'] == 2:
         conversation_state['row'] = 3
 
+        if 'včera' in low_up and ('lép' in low_up or 'líp' in low_up):
+            conversation_state["row"] = 3
+            conversation_state["col"] = 4
+            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
+            # Aha, tak to je lepší zůstat doma a číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?
+
         if 'výlet' in low_up:
             conversation_state["row"] = 4
             conversation_state["col"] = 0
@@ -202,12 +208,6 @@ def reply(user_reply, nick, conversation_state):
         # Aha, nechce. lepší zůstat doma číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?
 
         if 'zim' in low_up or 'oškli' in low_up or 'naopak' in low_up:
-            conversation_state["row"] = 3
-            conversation_state["col"] = 4
-            return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
-            # Aha, tak to je lepší zůstat doma a číst si nebo poslouchat hudbu. Posloucháte s oblibou hudbu?
-
-        if 'včera' in low_up and ('lép' in low_up or 'líp' in low_up):
             conversation_state["row"] = 3
             conversation_state["col"] = 4
             return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
