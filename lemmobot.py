@@ -49,6 +49,8 @@ def generate(tagger: Tagger, lemma: str, tag_wildcard: str = None):
 # místo `generate(tagger, ...)`
 Tagger.generate = generate
 
+rep = ''
+
 def gen_rep(user_reply, nick):
     tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
 
@@ -61,7 +63,7 @@ def gen_rep(user_reply, nick):
         ]
 
         if verb[0] == 'dělat':
-            return 'Většinou čekám, až si se mnou začne někdo povídat.'
+            rep = 'Většinou čekám, až si se mnou začne někdo povídat.'
 
 
 
@@ -78,7 +80,7 @@ def reply(user_reply, nick, cs):
 
     else:
         cs['row'] += 1
-        gen_rep(user_reply, nick)
+        return rep
 
 
 
