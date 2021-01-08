@@ -142,7 +142,9 @@ def chat():
 
     conversation_state = session.setdefault("conversation_state", {})
     scenario = import_module(session["scenario"])
-    bot_reply = scenario.reply(user_reply, user.nick, conversation_state)
+    scen_reply = scenario.scen(user_reply, user.nick, conversation_state)
+    gen_reply = scenario.gen(user_reply, user.nick, conversation_state)
+    bot_reply = scenario.reply(gen_reply, scen_reply)
     session.modified = True
     if bot_reply is None:
         session["page"] = "outro"
