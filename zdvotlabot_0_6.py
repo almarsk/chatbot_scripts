@@ -110,10 +110,6 @@ heading_color = "#ffcc00"
 reply_bg = "#fff0b3"
 reply_outline = "#ffcc00"
 
-def reply(gen, scen):
-    return gen + scen
-
-
 def scen(user_reply, nick, conversation_state):
     low_up = str(user_reply).lower()
     conversation_state.setdefault("row", 0)
@@ -632,11 +628,19 @@ def scen(user_reply, nick, conversation_state):
         conversation_state['col'] = 0
         return co_rika_bot[conversation_state["row"]][conversation_state["col"]]
 
+
 def gen(user_reply, nick, conversation_state):
     if conversation_state["row"] > 1:
         return "Ano, já jsem robot. "
     else:
         return ""
+
+def reply(user_reply, nick, conversation_state):
+    scen(user_reply, nick, conversation_state)
+    gen(user_reply, nick, conversation_state)
+
+    return reply
+
 
 
 
