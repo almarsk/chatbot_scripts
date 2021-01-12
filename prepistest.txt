@@ -1,5 +1,5 @@
 
-zvědavobot:Dobrý den, já jsem zvědavobot. A vy?
+zvědavobot:Dobrý den, já jsem zvědavobot. A vy
 zvědavobot:Těší mě. Dnes je hezky, že?
 zvědavobot:Dobrý den, já jsem zvědavobot. A vy?
 zvědavobot:Těší mě. Dnes je hezky, že?
