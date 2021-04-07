@@ -630,16 +630,14 @@ def scen(user_reply, nick, conversation_state):
 
 
 def gen(user_reply, nick, conversation_state):
-    if conversation_state["row"] > 1:
-        return "Ano, já jsem robot. "
-    else:
-        return ""
+
+    return "křenová omáčka"
 
 def reply(user_reply, nick, conversation_state):
     scen(user_reply, nick, conversation_state)
     gen(user_reply, nick, conversation_state)
 
-    return reply
+    return scen(user_reply, nick, conversation_state) + gen(user_reply, nick, conversation_state)
 
 
 
