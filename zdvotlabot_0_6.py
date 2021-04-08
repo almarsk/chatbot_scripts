@@ -631,7 +631,7 @@ def scen(user_reply, nick, conversation_state):
 
 def gen(user_reply, nick, conversation_state):
 
-    return "křenová omáčka"
+    return "generická odpověď"
 
 def reply(user_reply, nick, conversation_state):
     scen(user_reply, nick, conversation_state)
