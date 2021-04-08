@@ -634,9 +634,6 @@ def gen(user_reply, nick, conversation_state):
     return "generická odpověď"
 
 def reply(user_reply, nick, conversation_state):
-    scen(user_reply, nick, conversation_state)
-    gen(user_reply, nick, conversation_state)
-
     return scen(user_reply, nick, conversation_state) + gen(user_reply, nick, conversation_state)
 
 
