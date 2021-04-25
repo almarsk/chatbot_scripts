@@ -17,4 +17,12 @@ tagger = Tagger(model_path)
 
 def reply(user_reply, nick, cs):
     tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
-    return f"Odpověď uživatele {nick} obohacená o lemmatizaci a morfologické značkování: {tagged}"
+    přísudek = []
+    for token in tagged:
+        if token.tag[0]== "V":
+            přísudek.append(token.lemma)
+
+    return f"{přísudek}"
+
+
+print(reply("Okolí na Křístkovi oceňovalo přátelský a kolegiální přístup, vstřícnost ke studentům a vlídný humor.","test", {"row":1, "col":1}))

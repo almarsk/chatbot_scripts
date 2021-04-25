@@ -3,13 +3,9 @@ from corpy.morphodita import Tagger
 from ufal.morphodita import TaggedLemmasForms
 
 description = """
-Zvědavobot se učí klást  a odpovídat na otázky.
+Scénář 3 slouží k demonstraci lemmatizace a morfologického značkování
+vstupů od uživatele pomocí systému MorphoDiTa.
 """.strip()
-
-bg_color = "#dbaf7d"
-heading_color = "#c28a4a"
-reply_bg = "#9e7d3a"
-reply_outline = "#a35e0f"
 
 # Před použitím scénáře je potřeba stáhnout model, na základě kterého se
 # značkování provede, a uložit ho ve stejném adresáři jako scénář.
@@ -18,6 +14,19 @@ reply_outline = "#a35e0f"
 script_dir = Path(__file__).parent
 model_path = str(script_dir / "czech-morfflex-pdt-161115" / "czech-morfflex-pdt-161115.tagger")
 tagger = Tagger(model_path)
+
+
+def reply(user_reply, nick, cs):
+    tagged = list(tagger.tag(user_reply or "", convert="strip_lemma_id"))
+    přísudek = []
+    for token in tagged:
+        if token.tag[0]== "V":
+            přísudek.append(token.lemma)
+
+    return f"{přísudek}"
+
+
+print(reply("Okolí na Křístkovi oceňovalo přátelský a kolegiální přístup, vstřícnost ke studentům a vlídný humor.","test", {"row":1, "col":1}))
 
 def generate(tagger: Tagger, lemma: str, tag_wildcard: str = None):
     """Vygeneruje tvary pro dané lemma na základě morfologie z taggeru.
@@ -49,28 +58,11 @@ def generate(tagger: Tagger, lemma: str, tag_wildcard: str = None):
 # místo `generate(tagger, ...)`
 Tagger.generate = generate
 
-
-def reply(user_reply, nick, cs):
-    tagged = list(tagger.tag(text = user_reply or "", sents=True, convert="strip_lemma_id"))
-    cs.setdefault("row", 0)
-    cs.setdefault("col", 0)
-    if cs['row'] == 0:
-        cs['row'] += 1
-        return "Dobrý den, já jsem zvědavobot. Co děláte ve volném čase?"
-
-    else:
-        for Token in tagged:
-            if Token.tag[7] == "1":
-                cs['row'] +=1
-                verb = [
-                tagger.generate(Token.lemma, "Vf----------") ]
-
-
-                return f"Teda, {verb[0]} vůbec neumím. Čemu ještě se věnujete?"
-
-            else:
-                return "Tomu nerozumím."
-
-print(reply("Okolí na Křístkovi oceňovalo přátelský a kolegiální přístup, vstřícnost ke studentům a vlídný humor.","test", {"row":1, "col":1}))
-
-
+print("Všechny tvary lemmatu plést:")
+tagger.generate("plést")
+print()
+print("Jen tvary, které jsou dle tagu slovesa v 2. os. pl.:")
+tagger.generate("plést", "V??P???2")
+print()
+print("Ten, který patrně chcete:")
+tagger.generate("plést", "VB-P---2P-AA")
